@@ -1,0 +1,13 @@
+{
+  "name": "o-he-dropdown-menu",
+  "dependencies": {},
+  "main": [
+    "main.scss",
+    "main.js"
+  ],
+  "ignore": [
+    "examples",
+    "test",
+    ".gitignore"
+  ]
+}
