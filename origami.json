@@ -4,6 +4,11 @@
     "origamiVersion": 1,
     "support": "https://github.com/Financial-Times/o-he-dropdown-menu/issues",
     "supportStatus": "experimental",
+    "browserFeatures": {
+      "required": [
+        "classlist"
+      ]
+    },
     "demos": [
         {
             "path": "/demos/demo.html",

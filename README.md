@@ -1,41 +1,15 @@
 # o-he-dropdown-menu
 
-**Note:** This is not a usable Origami component.
+Contextual menu for displaying list items.
 
-Project structure for new Origami components.
+## Quick start
 
-### Creating a new Origami Module
+TODO
 
-1. Clone this repository into a new folder:
+## Browser support
 
-  ```
-  git clone https://github.com/Financial-Times/o-he-dropdown-menu.git o-your-component
-  ```
-2. Search `o-he-dropdown-menu` and replace with `o-your-component`:
+TODO
 
-  ```
-  find . -name '*.*' -type f -print -exec sed -i '' 's/o-he-dropdown-menu/o-your-component/g' {} \;
-  ```
-3. Search `oHeDropdownMenu` and replace with `oYourComponent`:
+## License
 
-  ```
-  find . -name '*.*' -type f -print -exec sed -i '' 's/oHeDropdownMenu/oYourComponent/g' {} \;
-  ```
-4. Re-name the component in the description field of `origami.json`
-
-### Deploying for the first time
-
-1. Create a new repository (tipically: on GitHub)
-2. Delete the existing Git directory: `rm -Rf .git`
-3. Initialise a new local Git repository: `git init .`
-4. Add the remote repository:
-
-  ```
-  git remote add origin https://github.com/Financial-Times/o-your-component.git
-  ```
-5. Test and verify: `obt test && obt verify` (and fix the code raising errors)
-6. Commit and push: `git add . && git commit -m "Initial commit" && git push origin master`
-
-## Licence
-
-This software is published by the Financial Times under the [MIT licence](http://opensource.org/licenses/MIT).
+This software is published by Pearson Education under the [MIT license](http://opensource.org/licenses/MIT).
