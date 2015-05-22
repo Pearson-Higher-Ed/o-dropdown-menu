@@ -10,6 +10,7 @@
   "ignore": [
     "examples",
     "test",
+    "scripts",
     ".gitignore"
   ],
   "license": "MIT"
