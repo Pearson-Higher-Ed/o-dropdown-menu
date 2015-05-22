@@ -13,5 +13,9 @@
     "scripts",
     ".gitignore"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aarmour/o-he-dropdown-menu.git"
+  },
   "license": "MIT"
 }
