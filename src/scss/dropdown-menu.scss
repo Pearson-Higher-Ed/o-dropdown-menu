@@ -63,3 +63,33 @@
 		cursor: not-allowed;
 	}
 }
+
+// Inverse
+.o-he-dropdown-menu--inverse {
+
+	.o-he-dropdown-menu__menu-items {
+		background-color: $o-he-dropdown-menu-bg-inverse;
+		border: 1px solid $o-he-dropdown-menu-border-inverse;
+	}
+
+	.o-he-dropdown-menu__menu-item > a {
+		color: $o-he-dropdown-menu-link-color-inverse;
+
+		&:hover,
+		&:focus {
+			color: $o-he-dropdown-menu-link-hover-color-inverse;
+			background-color: $o-he-dropdown-menu-link-hover-bg-inverse;
+		}
+	}
+
+	.o-he-dropdown-menu__menu-item--disabled > a {
+
+		&,
+		&:hover,
+		&:focus {
+			color: $o-he-dropdown-menu-link-disabled-color-inverse;
+		}
+
+	}
+
+}
