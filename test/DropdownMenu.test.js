@@ -5,7 +5,7 @@ var expect = require('expect.js');
 
 var DropdownMenu = require('./../src/js/DropdownMenu');
 var dispatchEvent = require('./../src/js/utils').dispatchEvent;
-var initKeyboardEvent = require('./init-keyboard-event');
+var initKeyboardEvent = require('./utils').initKeyboardEvent;
 
 describe('DropdownMenu', function () {
 

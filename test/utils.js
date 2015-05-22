@@ -1,7 +1,8 @@
-// Adapted from https://gist.github.com/termi/4654819
 'use strict';
 
-var _initKeyboardEvent_type = (function(e) {
+// Adapted from https://gist.github.com/termi/4654819
+function initKeyboardEvent(type, dict) {
+	var _initKeyboardEvent_type = (function(e) {
 		try {
 			e.initKeyboardEvent(
 				"keyup",                  // in DOMString typeArg
@@ -43,36 +44,35 @@ var _initKeyboardEvent_type = (function(e) {
 		catch ( __e__ ) { _initKeyboardEvent_type = 0 }
 	})(document.createEvent( "KeyboardEvent" ));
 
-var	_keyboardEvent_properties_dictionary = {
-		"char": "",
-		"key": "",
-		"location": 0,
-		"ctrlKey": false,
-		"shiftKey": false,
-		"altKey": false,
-		"metaKey": false,
-		"repeat": false,
-		"locale": "",
+	var	_keyboardEvent_properties_dictionary = {
+			"char": "",
+			"key": "",
+			"location": 0,
+			"ctrlKey": false,
+			"shiftKey": false,
+			"altKey": false,
+			"metaKey": false,
+			"repeat": false,
+			"locale": "",
 
-		"detail": 0,
-		"bubbles": false,
-		"cancelable": false,
+			"detail": 0,
+			"bubbles": false,
+			"cancelable": false,
 
-		//legacy properties
-		"keyCode": 0,
-		"charCode": 0,
-		"which": 0
+			//legacy properties
+			"keyCode": 0,
+			"charCode": 0,
+			"which": 0
+		};
+
+	var	own = Function.prototype.call.bind(Object.prototype.hasOwnProperty);
+
+	var	_Object_defineProperty = Object.defineProperty || function(obj, prop, val) {
+		if( "value" in val ) {
+			obj[prop] = val["value"];
+		}
 	};
 
-var	own = Function.prototype.call.bind(Object.prototype.hasOwnProperty);
-
-var	_Object_defineProperty = Object.defineProperty || function(obj, prop, val) {
-	if( "value" in val ) {
-		obj[prop] = val["value"];
-	}
-};
-
-function initKeyboardEvent(type, dict) {
 	var e;
 	if( _initKeyboardEvent_type ) {
 		e = document.createEvent( "KeyboardEvent" );
@@ -163,4 +163,4 @@ function initKeyboardEvent(type, dict) {
 	return e;
 }
 
-module.exports = initKeyboardEvent;
+exports.initKeyboardEvent = initKeyboardEvent;
