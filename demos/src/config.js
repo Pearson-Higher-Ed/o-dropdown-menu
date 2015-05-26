@@ -6,8 +6,20 @@ module.exports = {
 	},
 	"demos": [
 		{
-			"name": "demo",
-			"template": "demos/src/demo.mustache"
+			"name": "triggers",
+			"template": "demos/src/triggers.mustache"
+		},
+		{
+			"name": "right",
+			"template": "demos/src/right.mustache"
+		},
+		{
+			"name": "inverse",
+			"template": "demos/src/inverse.mustache"
+		},
+		{
+			"name": "disabled",
+			"template": "demos/src/disabled.mustache"
 		}
 	]
 };
