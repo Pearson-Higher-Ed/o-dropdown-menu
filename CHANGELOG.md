@@ -1,3 +1,12 @@
+<a name"0.1.0"></a>
+## 0.1.0 (2015-05-26)
+
+
+#### Features
+
+* **dropdown-menu:** update inverse styles to match current Console design ([2e412909](https://github.com/aarmour/o-he-dropdown-menu/commit/2e412909))
+
+
 <a name"0.0.1"></a>
 ### 0.0.1 (2015-05-22)
 
