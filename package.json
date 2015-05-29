@@ -5,10 +5,7 @@
   "scripts": {
     "test": "./node_modules/karma/bin/karma start karma.conf.js"
   },
-  "license": {
-    "type": "MIT",
-    "url": "http://www.opensource.org/licenses/mit-license.php"
-  },
+  "license": "MIT",
   "devDependencies": {
     "babelify": "^5.0.4",
     "conventional-changelog": "0.0.17",
