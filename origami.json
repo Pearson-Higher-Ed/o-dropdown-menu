@@ -5,13 +5,28 @@
     "support": "https://github.com/Financial-Times/o-he-dropdown-menu/issues",
     "supportStatus": "experimental",
     "browserFeatures": {
-      "required": [
-        "classlist"
-      ]
+        "required": [
+            "classlist"
+        ]
     },
     "demos": [
         {
-            "path": "/demos/demo.html",
+            "path": "/demos/triggers.html",
+            "expanded": true,
+            "description": ""
+        },
+        {
+            "path": "/demos/right.html",
+            "expanded": true,
+            "description": ""
+        },
+        {
+            "path": "/demos/inverse.html",
+            "expanded": true,
+            "description": ""
+        },
+        {
+            "path": "/demos/disabled.html",
             "expanded": true,
             "description": ""
         }
