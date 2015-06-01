@@ -3,6 +3,10 @@
 var DomDelegate = require('dom-delegate');
 var dispatchEvent = require('./utils').dispatchEvent;
 
+/**
+ * Represents a contextual menu for displaying list items.
+ * @param {HTMLElement} element
+ */
 function DropdownMenu(element) {
 	if (!(this instanceof DropdownMenu)) throw new TypeError('Constructor DropdownMenu requires \'new\'');
 	if (!element) throw new TypeError('missing required argument: element');
@@ -75,6 +79,13 @@ function DropdownMenu(element) {
 	this.destroy = destroy;
 }
 
+/**
+ * Initializes all dropdown-menu elements on the page or within
+ * the element passed in.
+ * @param  {HTMLElement|string} element DOM element or selector.
+ * @return {DropdownMenu[]} List of DropdownMenu instances that
+ * have been initialized.
+ */
 DropdownMenu.init = function (element) {
 	var dropdownMenuEls = selectAll(element);
 	var dropdownMenus = [];
@@ -86,10 +97,16 @@ DropdownMenu.init = function (element) {
 	return dropdownMenus;
 };
 
+/**
+ * Destroys all dropdown-menu instances on the page.
+ */
 DropdownMenu.destroy = function () {
 	DropdownMenu.bodyDelegate && DropdownMenu.bodyDelegate.destroy();
 };
 
+/**
+ * Expands or collapses the menu items.
+ */
 DropdownMenu.prototype.toggle = function () {
 	var element = this.element;
 	var toggleElement = this.toggleElement;
