@@ -131,7 +131,7 @@ function selectAll(element) {
 	if (!element) {
 		element = document.body;
 	} else if (!(element instanceof HTMLElement)) {
-		element = document.querySelectorAll('[data-o-component="o-he-dropdown-menu"]');
+		element = document.querySelectorAll(element);
 	}
 
 	return element.querySelectorAll('[data-o-component="o-he-dropdown-menu"]');
