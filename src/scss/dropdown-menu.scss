@@ -45,6 +45,14 @@
 
 }
 
+// Divider
+.o-he-dropdown-menu__divider {
+	height: 1px;
+	margin: 9px 0;
+	overflow: hidden;
+	background-color: $o-he-dropdown-divider-bg;
+}
+
 // Disabled state
 .o-he-dropdown-menu__menu-item--disabled > a {
 
@@ -90,6 +98,10 @@
 			color: $o-he-dropdown-menu-link-disabled-color-inverse;
 		}
 
+	}
+
+	.o-he-dropdown-menu__divider {
+		background-color: $o-he-dropdown-menu-divider-bg-inverse;
 	}
 
 }
