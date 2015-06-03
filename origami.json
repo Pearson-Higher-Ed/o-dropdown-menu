@@ -1,5 +1,5 @@
 {
-    "description": "Component Blueprint",
+    "description": "Contextual menu for displaying list items",
     "origamiType": "module",
     "origamiVersion": 1,
     "support": "https://github.com/Financial-Times/o-he-dropdown-menu/issues",
