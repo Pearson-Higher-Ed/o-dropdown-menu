@@ -12,4 +12,4 @@ TODO
 
 ## License
 
-This software is published by Pearson Education under the [MIT license](http://opensource.org/licenses/MIT).
+This software is published by Pearson Education under the [MIT license](LICENSE).
