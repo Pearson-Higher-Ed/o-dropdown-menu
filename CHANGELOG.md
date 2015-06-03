@@ -1,3 +1,12 @@
+<a name"0.1.1"></a>
+### 0.1.1 (2015-06-03)
+
+
+#### Bug Fixes
+
+* select element when element argument is not an instance of HTMLElement ([eef6bc43](https://github.com/aarmour/o-he-dropdown-menu/commit/eef6bc43))
+
+
 <a name"0.1.0"></a>
 ## 0.1.0 (2015-05-26)
 
