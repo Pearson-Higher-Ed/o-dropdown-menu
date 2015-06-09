@@ -1,3 +1,22 @@
+<a name"0.2.0"></a>
+## 0.2.0 (2015-06-09)
+
+
+#### Features
+
+* rename module to o-dropdown-menu ([9b11e973](https://github.com/aarmour/o-dropdown-menu/commit/9b11e973))
+* **dropdown-menu:** add menu item divider ([a8fe4471](https://github.com/aarmour/o-dropdown-menu/commit/a8fe4471))
+
+
+#### Breaking Changes
+
+* the `he-` prefix was removed; the module name is now
+`o-dropdown-menu`. The `he-` prefix should be removed from all CSS
+selectors and `data-` attribute values.
+
+ ([9b11e973](https://github.com/aarmour/o-dropdown-menu/commit/9b11e973))
+
+
 <a name"0.1.1"></a>
 ### 0.1.1 (2015-06-03)
 
