@@ -1,28 +1,28 @@
 ////
-/// @group o-he-dropdown-menu
-/// @link http://registry.origami.ft.com/components/o-he-dropdown-menu
+/// @group o-dropdown-menu
+/// @link http://registry.origami.ft.com/components/o-dropdown-menu
 ////
 
 // Basics
-$o-he-dropdown-menu-bg: #ffffff !default;
-$o-he-dropdown-menu-border: rgba(0, 0, 0, 0.15) !default;
-$o-he-dropdown-divider-bg: rgba(0, 0, 0, 0.15) !default;
+$o-dropdown-menu-bg: #ffffff !default;
+$o-dropdown-menu-border: rgba(0, 0, 0, 0.15) !default;
+$o-dropdown-divider-bg: rgba(0, 0, 0, 0.15) !default;
 
 // Links
-$o-he-dropdown-menu-link-color: rgb(75, 75, 75) !default;
-$o-he-dropdown-menu-link-hover-color: rgb(255, 255, 255) !default;
-$o-he-dropdown-menu-link-hover-bg: rgb(118, 118, 118) !default;
-$o-he-dropdown-menu-link-disabled-color: rgb(116, 116, 116) !default;
+$o-dropdown-menu-link-color: rgb(75, 75, 75) !default;
+$o-dropdown-menu-link-hover-color: rgb(255, 255, 255) !default;
+$o-dropdown-menu-link-hover-bg: rgb(118, 118, 118) !default;
+$o-dropdown-menu-link-disabled-color: rgb(116, 116, 116) !default;
 
 // z-index
-$o-he-dropdown-menu-z-index: 1000 !default;
+$o-dropdown-menu-z-index: 1000 !default;
 
 // Inverse
-$o-he-dropdown-menu-bg-inverse: #272727 !default;
-$o-he-dropdown-menu-border-inverse: #272727 !default;
-$o-he-dropdown-menu-divider-bg-inverse: #999999 !default;
+$o-dropdown-menu-bg-inverse: #272727 !default;
+$o-dropdown-menu-border-inverse: #272727 !default;
+$o-dropdown-menu-divider-bg-inverse: #999999 !default;
 
-$o-he-dropdown-menu-link-color-inverse: #999999 !default;
-$o-he-dropdown-menu-link-hover-color-inverse: #eeeeee !default;
-$o-he-dropdown-menu-link-hover-bg-inverse: #3a3a3a !default;
-$o-he-dropdown-menu-link-disabled-color-inverse: rgb(116, 116, 116) !default;
+$o-dropdown-menu-link-color-inverse: #999999 !default;
+$o-dropdown-menu-link-hover-color-inverse: #eeeeee !default;
+$o-dropdown-menu-link-hover-bg-inverse: #3a3a3a !default;
+$o-dropdown-menu-link-disabled-color-inverse: rgb(116, 116, 116) !default;

@@ -33,7 +33,7 @@ function DropdownMenu(element) {
 		var element = getRootElement(e.target);
 		var toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
 
-		var isExpanded = element.classList.contains('o-he-dropdown-menu--expanded');
+		var isExpanded = element.classList.contains('o-dropdown-menu--expanded');
 
 		// Toggle the menu: if not expanded, keys other than esc will expand it;
 		// if expanded, esc will collapse it.
@@ -43,7 +43,7 @@ function DropdownMenu(element) {
 		}
 
 		// Focus menu item
-		var itemEls = element.querySelectorAll('.o-he-dropdown-menu__menu-item:not(.o-he-dropdown-menu__menu-item--disabled) a');
+		var itemEls = element.querySelectorAll('.o-dropdown-menu__menu-item:not(.o-dropdown-menu__menu-item--disabled) a');
 
 		if (!itemEls.length) return;
 
@@ -112,17 +112,17 @@ DropdownMenu.prototype.toggle = function () {
 	var toggleElement = this.toggleElement;
 
 	var isDisabled =
-		toggleElement.classList.contains('o-he-dropdown-menu__toggle--disabled') ||
+		toggleElement.classList.contains('o-dropdown-menu__toggle--disabled') ||
 		toggleElement.disabled;
 
-	var isExpanded = element.classList.contains('o-he-dropdown-menu--expanded');
+	var isExpanded = element.classList.contains('o-dropdown-menu--expanded');
 
 	collapseAll();
 
 	if (isDisabled) return;
 
 	if (!isExpanded) {
-		element.classList.add('o-he-dropdown-menu--expanded');
+		element.classList.add('o-dropdown-menu--expanded');
 		toggleElement.setAttribute('aria-expanded', 'true');
 	}
 
@@ -131,7 +131,7 @@ DropdownMenu.prototype.toggle = function () {
 
 function getRootElement(element) {
 	while (element !== null) {
-		if (element.getAttribute('data-o-component') === 'o-he-dropdown-menu') return element;
+		if (element.getAttribute('data-o-component') === 'o-dropdown-menu') return element;
 		element = element.parentElement;
 	}
 }
@@ -151,7 +151,7 @@ function selectAll(element) {
 		element = document.querySelectorAll(element);
 	}
 
-	return element.querySelectorAll('[data-o-component="o-he-dropdown-menu"]');
+	return element.querySelectorAll('[data-o-component="o-dropdown-menu"]');
 }
 
 function collapseAll() {
@@ -161,9 +161,9 @@ function collapseAll() {
 		var element = dropdownMenuEls[i];
 		var toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
 
-		if (!element.classList.contains('o-he-dropdown-menu--expanded')) continue;
+		if (!element.classList.contains('o-dropdown-menu--expanded')) continue;
 
-		element.classList.remove('o-he-dropdown-menu--expanded');
+		element.classList.remove('o-dropdown-menu--expanded');
 		toggleElement.removeAttribute('aria-expanded');
 	}
 }

@@ -1,4 +1,4 @@
-# o-he-dropdown-menu [![Build Status](https://travis-ci.org/aarmour/o-he-dropdown-menu.svg)](https://travis-ci.org/aarmour/o-he-dropdown-menu)
+# o-dropdown-menu [![Build Status](https://travis-ci.org/aarmour/o-dropdown-menu.svg)](https://travis-ci.org/aarmour/o-dropdown-menu)
 
 Contextual menu for displaying list items.
 

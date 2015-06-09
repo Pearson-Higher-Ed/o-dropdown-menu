@@ -64,7 +64,7 @@ describe('DropdownMenu', function () {
 			var element = createDropdownMenuEl(document.createElement('a'));
 			var toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
 
-			toggleElement.classList.add('o-he-dropdown-menu__toggle--disabled');
+			toggleElement.classList.add('o-dropdown-menu__toggle--disabled');
 			var dropdownMenu = new DropdownMenu(element);
 
 			dropdownMenu.toggle();
@@ -141,8 +141,8 @@ describe('DropdownMenu', function () {
 
 function createDropdownMenuEl(triggerEl) {
 	var element = document.createElement('div');
-	element.classList.add('o-he-dropdown-menu');
-	element.setAttribute('data-o-component', 'o-he-dropdown-menu');
+	element.classList.add('o-dropdown-menu');
+	element.setAttribute('data-o-component', 'o-dropdown-menu');
 
 	triggerEl = triggerEl || document.createElement('button');
 	triggerEl.setAttribute('data-toggle', 'dropdown-menu');
@@ -155,7 +155,7 @@ function createDropdownMenuEl(triggerEl) {
 }
 
 function isExpanded(element) {
-	return element.classList.contains('o-he-dropdown-menu--expanded');
+	return element.classList.contains('o-dropdown-menu--expanded');
 }
 
 function isAriaExpanded(element) {

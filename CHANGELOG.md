@@ -4,7 +4,7 @@
 
 #### Bug Fixes
 
-* select element when element argument is not an instance of HTMLElement ([eef6bc43](https://github.com/aarmour/o-he-dropdown-menu/commit/eef6bc43))
+* select element when element argument is not an instance of HTMLElement ([eef6bc43](https://github.com/aarmour/o-dropdown-menu/commit/eef6bc43))
 
 
 <a name"0.1.0"></a>
@@ -13,7 +13,7 @@
 
 #### Features
 
-* **dropdown-menu:** update inverse styles to match current Console design ([2e412909](https://github.com/aarmour/o-he-dropdown-menu/commit/2e412909))
+* **dropdown-menu:** update inverse styles to match current Console design ([2e412909](https://github.com/aarmour/o-dropdown-menu/commit/2e412909))
 
 
 <a name"0.0.1"></a>
@@ -23,6 +23,6 @@
 #### Features
 
 * **dropdown-menu:**
-  * add inverse styles ([cd1f7c8a](https://github.com/aarmour/o-he-dropdown-menu/commit/cd1f7c8a))
-  * basic features ([5e164e14](https://github.com/aarmour/o-he-dropdown-menu/commit/5e164e14))
+  * add inverse styles ([cd1f7c8a](https://github.com/aarmour/o-dropdown-menu/commit/cd1f7c8a))
+  * basic features ([5e164e14](https://github.com/aarmour/o-dropdown-menu/commit/5e164e14))
 
