@@ -20,22 +20,6 @@ describe('DropdownMenu', function () {
 		dropdownMenu.destroy();
 	});
 
-	it('should collapse the menu when click event occurs outside of the dropdown element', function () {
-		var element = createDropdownMenuEl();
-
-		document.body.appendChild(element);
-
-		var menu = new DropdownMenu(element);
-
-		menu.toggle();
-
-		expect(isExpanded(element)).to.be(true);
-
-		dispatchEvent(document.body, 'click');
-
-		expect(isExpanded(element)).to.be(false);
-	});
-
 	describe('toggle()', function () {
 
 		it('should toggle the dropdown', function () {
@@ -88,6 +72,73 @@ describe('DropdownMenu', function () {
 
 			expect(isExpanded(elements[1])).to.be(true);
 			expect(isExpanded(elements[0])).to.be(false);
+		});
+
+	});
+
+	describe('click', function () {
+
+		it('should collapse the menu when click event occurs outside of the dropdown element', function () {
+			var element = createDropdownMenuEl();
+
+			document.body.appendChild(element);
+
+			var menu = new DropdownMenu(element);
+
+			menu.toggle();
+
+			expect(isExpanded(element)).to.be(true);
+
+			dispatchEvent(document.body, 'click');
+
+			expect(isExpanded(element)).to.be(false);
+		});
+
+		it('should prevent default when menu item is a valid link and is disabled', function (done) {
+			var element = createDropdownMenuEl();
+			document.body.appendChild(element);
+
+			var menuItem = document.createElement('li');
+			var menuItemLink = document.createElement('a');
+			menuItem.classList.add('o-dropdown-menu__menu-item');
+			menuItem.classList.add('o-dropdown-menu__menu-item--disabled');
+			menuItemLink.setAttribute('role', 'menuitem');
+			menuItemLink.href = 'http://example.com';
+			menuItem.appendChild(menuItemLink);
+			element.querySelector('.o-dropdown-menu__menu-items').appendChild(menuItem);
+
+			new DropdownMenu(element);
+
+			element.addEventListener('click', function (e) {
+				expect(e.defaultPrevented).to.be(true);
+				e.preventDefault();
+				done();
+			});
+
+			dispatchEvent(menuItemLink, 'click');
+		});
+
+		it('should not prevent default when menu item is a valid link', function (done) {
+			var element = createDropdownMenuEl();
+			document.body.appendChild(element);
+
+			var menuItem = document.createElement('li');
+			var menuItemLink = document.createElement('a');
+			menuItem.classList.add('o-dropdown-menu__menu-item');
+			menuItemLink.setAttribute('role', 'menuitem');
+			menuItemLink.href = 'http://example.com';
+			menuItem.appendChild(menuItemLink);
+			element.querySelector('.o-dropdown-menu__menu-items').appendChild(menuItem);
+
+			new DropdownMenu(element);
+
+			element.addEventListener('click', function (e) {
+				expect(e.defaultPrevented).to.be(false);
+				e.preventDefault();
+				done();
+			});
+
+			dispatchEvent(menuItemLink, 'click');
 		});
 
 	});
@@ -149,6 +200,7 @@ function createDropdownMenuEl(triggerEl) {
 	element.appendChild(triggerEl);
 
 	var menuItemsEl = document.createElement('ul');
+	menuItemsEl.classList.add('o-dropdown-menu__menu-items');
 	element.appendChild(menuItemsEl);
 
 	return element;

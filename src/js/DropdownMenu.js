@@ -18,7 +18,18 @@ function DropdownMenu(element) {
 	if (!toggleElement) throw new Error('unable to locate a child element with selector: [data-toggle="dropdown-menu"]');
 
 	function handleClick(e) {
-		e.preventDefault();
+		if (e.target.tagName.toLowerCase() === 'a' &&
+			e.target.getAttribute('data-toggle') !== 'dropdown-menu') {
+
+			if (e.target.href === '#' ||
+				e.target.parentElement.classList.contains('o-dropdown-menu__menu-item--disabled')) {
+
+				e.preventDefault();
+			}
+		} else {
+			e.preventDefault();
+		}
+
 		dropdownMenu.toggle();
 	}
 
