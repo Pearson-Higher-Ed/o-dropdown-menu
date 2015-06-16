@@ -4,8 +4,8 @@
 
 #### Features
 
-* rename module to o-dropdown-menu ([9b11e973](https://github.com/aarmour/o-dropdown-menu/commit/9b11e973))
-* **dropdown-menu:** add menu item divider ([a8fe4471](https://github.com/aarmour/o-dropdown-menu/commit/a8fe4471))
+* rename module to o-dropdown-menu ([9b11e973](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/9b11e973))
+* **dropdown-menu:** add menu item divider ([a8fe4471](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/a8fe4471))
 
 
 #### Breaking Changes
@@ -14,7 +14,7 @@
 `o-dropdown-menu`. The `he-` prefix should be removed from all CSS
 selectors and `data-` attribute values.
 
- ([9b11e973](https://github.com/aarmour/o-dropdown-menu/commit/9b11e973))
+ ([9b11e973](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/9b11e973))
 
 
 <a name"0.1.1"></a>
@@ -23,7 +23,7 @@ selectors and `data-` attribute values.
 
 #### Bug Fixes
 
-* select element when element argument is not an instance of HTMLElement ([eef6bc43](https://github.com/aarmour/o-dropdown-menu/commit/eef6bc43))
+* select element when element argument is not an instance of HTMLElement ([eef6bc43](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/eef6bc43))
 
 
 <a name"0.1.0"></a>
@@ -32,7 +32,7 @@ selectors and `data-` attribute values.
 
 #### Features
 
-* **dropdown-menu:** update inverse styles to match current Console design ([2e412909](https://github.com/aarmour/o-dropdown-menu/commit/2e412909))
+* **dropdown-menu:** update inverse styles to match current Console design ([2e412909](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/2e412909))
 
 
 <a name"0.0.1"></a>
@@ -42,6 +42,6 @@ selectors and `data-` attribute values.
 #### Features
 
 * **dropdown-menu:**
-  * add inverse styles ([cd1f7c8a](https://github.com/aarmour/o-dropdown-menu/commit/cd1f7c8a))
-  * basic features ([5e164e14](https://github.com/aarmour/o-dropdown-menu/commit/5e164e14))
+  * add inverse styles ([cd1f7c8a](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/cd1f7c8a))
+  * basic features ([5e164e14](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/5e164e14))
 
