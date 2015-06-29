@@ -1,3 +1,18 @@
+<a name"0.3.0"></a>
+## 0.3.0 (2015-06-29)
+
+
+#### Bug Fixes
+
+* remove hover and focus effects for inverse menu items ([4f74a1ac](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/4f74a1ac))
+* do not prevent the default action when the menu item is a link and href is not `#` ([fd789b83](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/fd789b83))
+
+
+#### Features
+
+* add support for button menu item ([b5834a2f](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/b5834a2f))
+
+
 <a name"0.2.0"></a>
 ## 0.2.0 (2015-06-09)
 
