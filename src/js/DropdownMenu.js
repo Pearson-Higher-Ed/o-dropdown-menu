@@ -54,7 +54,10 @@ function DropdownMenu(element) {
 		}
 
 		// Focus menu item
-		var itemEls = element.querySelectorAll('.o-dropdown-menu__menu-item:not(.o-dropdown-menu__menu-item--disabled) a');
+		var selector =
+			'.o-dropdown-menu__menu-item:not(.o-dropdown-menu__menu-item--disabled) a, ' +
+			'.o-dropdown-menu__menu-item:not(.o-dropdown-menu__menu-item--disabled) button';
+		var itemEls = element.querySelectorAll(selector);
 
 		if (!itemEls.length) return;
 

@@ -29,7 +29,8 @@
 }
 
 // Menu item
-.o-dropdown-menu__menu-item > a {
+.o-dropdown-menu__menu-item > a,
+.o-dropdown-menu__menu-item > button {
 	display: block;
 	padding: 3px 20px;
 	clear: both;
@@ -45,6 +46,27 @@
 
 }
 
+.o-dropdown-menu__menu-item > button {
+	min-width: 100%;
+	margin: 0;
+	border: 0;
+	font-size: inherit;
+	font-family: inherit;
+	text-align: left;
+	cursor: pointer;
+	background-color: $o-dropdown-menu-bg;
+
+	// Remove extra space in FF
+	&::-moz-focus-inner {
+		padding: 0;
+		border: 0;
+	}
+}
+
+.o-dropdown-menu__menu-item > button:before {
+	width: 100%;
+}
+
 // Divider
 .o-dropdown-menu__divider {
 	height: 1px;
@@ -54,7 +76,8 @@
 }
 
 // Disabled state
-.o-dropdown-menu__menu-item--disabled > a {
+.o-dropdown-menu__menu-item--disabled > a,
+.o-dropdown-menu__menu-item > button:disabled {
 
 	&,
 	&:hover,
@@ -70,6 +93,7 @@
 		background-image: none;
 		cursor: not-allowed;
 	}
+
 }
 
 // Inverse
@@ -80,7 +104,8 @@
 		border: 1px solid $o-dropdown-menu-border-inverse;
 	}
 
-	.o-dropdown-menu__menu-item > a {
+	.o-dropdown-menu__menu-item > a,
+	.o-dropdown-menu__menu-item > button {
 		color: $o-dropdown-menu-link-color-inverse;
 
 		&:hover,
@@ -90,7 +115,12 @@
 		}
 	}
 
-	.o-dropdown-menu__menu-item--disabled > a {
+	.o-dropdown-menu__menu-item > button {
+		background-color: $o-dropdown-menu-bg-inverse;
+	}
+
+	.o-dropdown-menu__menu-item--disabled > a,
+	.o-dropdown-menu__menu-item > button:disabled {
 
 		&,
 		&:hover,
