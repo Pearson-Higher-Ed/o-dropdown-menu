@@ -1,19 +1,18 @@
 language: node_js
 sudo: false
 node_js:
-  - "0.12"
+- '0.12'
 before_install:
-  # obt v3 cannot be installed with npm > 2.7.5
-  - npm install -g npm@2.7.5
-  - npm install -g Financial-Times/origami-build-tools#node12
-  - obt install
+# obt v3 cannot be installed with npm > 2.7.5
+- npm install -g npm@2.7.5
+- npm install -g Financial-Times/origami-build-tools#node12
+- obt install
 script:
-  - obt test
-  - obt verify
+- obt test
+- obt verify
 notifications:
   hipchat:
     rooms:
-      secure: rgmEM5ZALL+blFfs1dgObp/q9JJcqKKrV/+u8tU7hT1iD+GN+/ghk/N892Xn+R3a7TkxbWFAty9/3sPttPoV7L6VWvHX9FYflts/EkaCDxtQ13uuOJJz6VhOt7UUhwl834P608vR66E4Q1yVuPei905IySmTfJ+Ckz8gmPau2rDIgwuFQ/0dElvJYfuUagKoF07fEXd9uGym4btlbFrONCQVCFJbon94sYRLo9MzRGUN5Kt/jXfjIyJmso7/cyr4FaMn9yEOeIPLxNc/AEbjeKJdTkiHa9RUhYPTNNb82TJTRF5oD2TxE1sj5eP47CrEqyzKo6v5SHkbBsK2ST6WJTiVVQZ//Vd0oU7sGDFpeRqrZjD7hOfChJ7nA33BvnBOHobDAmpUrvSzgThPQyfKdLCDPfQK7YIW8DUbeoIfygD+giAJKYqyBk+3bQpDGxjPF7vTSQWBqKhrmCE74hhgVUQq6Ub6loNAvPpKsV1X20JfhOD3LmK9KCT9XbScJy9gDn+ep1lA9BoByviyS/gOuv8Pcfl2FgMLqYGHBNlmKquzcqOD0t8qofVyxRddDsXiR+j6teCqC46GS481cKz6QRb5KWll8tfLrX3BQELgnWrtfroVH1hUmUOFxg99/BC7nikEXx6gCP0A9Ppv6PPDBvT1wfGyPWVGHi6veAc8MEc=
+      secure: OaeA99xzMFRy7XZG8sbe7JWHoC1k4OEd8Po4WFHojFHHJ+nYWKyEnA9Ob0kf8OG9NlPDPo4/zXpD4ETaAmD41UtyQGbuPKvNMGju1ebO9MxP5T4aof07FlxWw2rdA2Wf3dT9dy39pS7SaU1dZPuIlFvIXRCgXksJBI0gnmtfheFfA8VlS/veIvdKXEyde+WTzpU42KBBSZDDJkMNd3liDlpfmHSPuZojqu6rqnRWSq9i7IMjyOCWbjbHC/ODjYroeBMS7/mpueQxZJm5HZc2SO1JK/oLLMFocE/WElYuzpUGTnlZiPFFpptVLbmepYnzLfT/7XHdeLXzAR44rxeEY5WIIIhW67DvkUJ8p8+C7+dEW1uiLCXrrNIt9dAiQNyiDrb7UvQ6nOm76Dfbma/C7nexkPgZKxHaxHbddr2hvxZYBIE2F2EeUo5Shh4KbzXbzDw/yEysN1QRJjGWPRyIOai+jbto5lpzcNnuxBV995TuD03i/yuMf8cIUZ5LZMaqHoW447Ez0wSPOMRL73ZCxRhdVp8niIUDaL/V2BgUlWjbiIQxaTudHJRQP6oVdfMWDmV7kX+TLIIpKmaKbkreBk7/t9+0ufmG6bcqmci+QhY4OF0x0N3jbX/UmbFai7Ir1V4yaR3qrecDteev22GsNiLhpohal4DjfRlzT/35D4k=
     template:
-      - '%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}'
-
+    - "%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}"
