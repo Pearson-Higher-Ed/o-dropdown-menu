@@ -71,6 +71,18 @@
 	background-color: $o-dropdown-menu-divider-bg;
 }
 
+// Caret
+.o-dropdown-menu__caret-down {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	margin-left: 2px;
+	vertical-align: middle;
+	border-top: $o-dropdown-menu-caret-width dashed;
+	border-right: $o-dropdown-menu-caret-width solid transparent;
+	border-left: $o-dropdown-menu-caret-width solid transparent;
+}
+
 // Disabled state
 .o-dropdown-menu__menu-item--disabled > a,
 .o-dropdown-menu__menu-item > button:disabled {
