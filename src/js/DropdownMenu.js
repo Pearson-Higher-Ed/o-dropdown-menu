@@ -145,7 +145,7 @@ DropdownMenu.prototype.toggle = function () {
 
 function getRootElement(element) {
 	while (element !== null) {
-		if (element.getAttribute('data-o-component') === 'o-dropdown-menu') return element;
+		if (element.classList.contains('o-dropdown-menu')) return element;
 		element = element.parentElement;
 	}
 }
@@ -165,7 +165,7 @@ function selectAll(element) {
 		element = document.querySelectorAll(element);
 	}
 
-	return element.querySelectorAll('[data-o-component="o-dropdown-menu"]');
+	return element.querySelectorAll('.o-dropdown-menu');
 }
 
 function collapseAll() {

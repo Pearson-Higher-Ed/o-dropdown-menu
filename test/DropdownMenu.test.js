@@ -193,7 +193,6 @@ describe('DropdownMenu', function () {
 function createDropdownMenuEl(triggerEl) {
 	var element = document.createElement('div');
 	element.classList.add('o-dropdown-menu');
-	element.setAttribute('data-o-component', 'o-dropdown-menu');
 
 	triggerEl = triggerEl || document.createElement('button');
 	triggerEl.setAttribute('data-toggle', 'dropdown-menu');
