@@ -1,3 +1,25 @@
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/compare/v0.3.0...v0.4.0) (2015-08-13)
+
+
+### Bug Fixes
+
+* variable name ([ac1ac63](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/ac1ac63))
+
+### Features
+
+* remove data-o-component ([88b1179](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/88b1179))
+
+
+### Breaking Changes
+
+* data-o-component="o-dropdown-menu" is no longer supported. Use the
+module name class selector to select dropdown menu elements:
+```js
+document.querySelectorAll('.o-dropdown-menu');
+```
+
+
 <a name"0.3.0"></a>
 ## 0.3.0 (2015-06-29)
 
