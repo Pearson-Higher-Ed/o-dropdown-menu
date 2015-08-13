@@ -6,6 +6,10 @@
   "scripts": {
     "test": "./node_modules/karma/bin/karma start karma.conf.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pearson-Higher-Ed/o-dropdown-menu.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "babelify": "^5.0.4",
