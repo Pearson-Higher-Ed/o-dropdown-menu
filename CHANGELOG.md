@@ -1,3 +1,13 @@
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/compare/v0.4.0...v0.5.0) (2015-08-14)
+
+
+### Features
+
+* set outline-offset for menu items to contain focus outline within the menu items element ([6b11a49](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/6b11a49))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/compare/v0.3.0...v0.4.0) (2015-08-13)
 
