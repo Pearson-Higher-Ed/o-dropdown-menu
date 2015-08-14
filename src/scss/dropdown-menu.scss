@@ -37,6 +37,7 @@
 	text-decoration: none;
 	color: $o-dropdown-menu-link-color;
 	white-space: nowrap;
+	outline-offset: -2px;
 
 	&:hover,
 	&:focus {
