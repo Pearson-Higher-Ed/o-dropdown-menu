@@ -1,3 +1,13 @@
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/compare/v0.5.0...v0.6.0) (2015-08-26)
+
+
+### Features
+
+* add expand and collapse events ([5c9c73a](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/5c9c73a))
+
+
+
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/compare/v0.4.0...v0.5.0) (2015-08-14)
 
