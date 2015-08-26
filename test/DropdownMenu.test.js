@@ -188,6 +188,29 @@ describe('DropdownMenu', function () {
 
 	});
 
+	describe('events', function () {
+
+		it('should fire oDropdownMenu.expand when the menu is expanded', function (done) {
+			var element = createDropdownMenuEl();
+			element.addEventListener('oDropdownMenu.expand', done.bind(null, null));
+			document.body.appendChild(element);
+			var menu = new DropdownMenu(element);
+
+			menu.toggle();
+		});
+
+		it('should fire oDropdownMenu.collapse when the menu is collapsed', function (done) {
+			var element = createDropdownMenuEl();
+			element.addEventListener('oDropdownMenu.collapse', done.bind(null, null));
+			document.body.appendChild(element);
+			var menu = new DropdownMenu(element);
+
+			menu.toggle();
+			menu.toggle();
+		});
+
+	});
+
 });
 
 function createDropdownMenuEl(triggerEl) {

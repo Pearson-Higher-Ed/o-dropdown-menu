@@ -138,6 +138,7 @@ DropdownMenu.prototype.toggle = function () {
 	if (!isExpanded) {
 		element.classList.add('o-dropdown-menu--expanded');
 		toggleElement.setAttribute('aria-expanded', 'true');
+		dispatchEvent(element, 'oDropdownMenu.expand');
 	}
 
 	return this;
@@ -179,6 +180,7 @@ function collapseAll() {
 
 		element.classList.remove('o-dropdown-menu--expanded');
 		toggleElement.removeAttribute('aria-expanded');
+		dispatchEvent(element, 'oDropdownMenu.collapse');
 	}
 }
 

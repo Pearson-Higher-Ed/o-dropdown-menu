@@ -6,9 +6,20 @@ Contextual menu for displaying list items.
 
 TODO
 
-## Browser support
+## API
 
-TODO
+### Events
+
+| Event Name               | Description                                         |
+|--------------------------|-----------------------------------------------------|
+| oDropdownMenu.expand     | Fires when the menu items are expanded.             |
+| oDropdownMenu.collapse   | Fires when the menu items are collapsed.            |
+
+```js
+document.querySelector('#dropdown-menu').addEventListener('oDropdownMenu.expand', function (e) {
+	// Do something
+});
+```
 
 ## License
 
