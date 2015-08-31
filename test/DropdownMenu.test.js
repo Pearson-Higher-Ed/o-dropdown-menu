@@ -6,6 +6,12 @@ var expect = require('expect.js');
 var DropdownMenu = require('./../src/js/DropdownMenu');
 var dispatchEvent = require('./../src/js/utils').dispatchEvent;
 var initKeyboardEvent = require('./utils').initKeyboardEvent;
+var constants = require('./../src/js/constants');
+
+var ESC = constants.ESC;
+var SPACE = constants.SPACE;
+var UP_ARROW = constants.UP_ARROW;
+var DOWN_ARROW = constants.DOWN_ARROW;
 
 describe('DropdownMenu', function () {
 
@@ -159,15 +165,15 @@ describe('DropdownMenu', function () {
 		}
 
 		it('should expand when the space key is pressed', function () {
-			testKeyCode_expands(32);
+			testKeyCode_expands(SPACE);
 		});
 
 		it('should expand when the down arrow key is pressed', function () {
-			testKeyCode_expands(40);
+			testKeyCode_expands(DOWN_ARROW);
 		});
 
 		it('should expand when the up arrow key is pressed', function () {
-			testKeyCode_expands(38);
+			testKeyCode_expands(UP_ARROW);
 		});
 
 		it('should collapse when the esc key is pressed', function () {
@@ -176,7 +182,7 @@ describe('DropdownMenu', function () {
 			document.body.appendChild(element);
 
 			var menu = new DropdownMenu(element);
-			var event = initKeyboardEvent('keydown', { keyCode: 27, bubbles: true, cancelable: true });
+			var event = initKeyboardEvent('keydown', { keyCode: ESC, bubbles: true, cancelable: true });
 
 			menu.toggle();
 			expect(isExpanded(element)).to.be(true);
@@ -184,6 +190,85 @@ describe('DropdownMenu', function () {
 			menu.toggleElement.dispatchEvent(event);
 
 			expect(isExpanded(element)).to.be(false);
+		});
+
+		it('should focus the first menu item when the down arrow key is pressed', function () {
+			var element = createDropdownMenuEl();
+			var menuItemEl = addMenuItemEl(element, { linkTextContent: 'Item 1' });
+			addMenuItemEl(element, { linkTextContent: 'Item 2' });
+
+			document.body.appendChild(element);
+
+			var menu = new DropdownMenu(element);
+			menu.toggle();
+			menu.toggleElement.focus();
+
+			var event = initKeyboardEvent('keydown', { keyCode: DOWN_ARROW, bubbles: true, cancelable: true });
+			document.activeElement.dispatchEvent(event);
+
+			expect(document.activeElement).to.equal(menuItemEl.querySelector('a'));
+		});
+
+		it('should not wrap past the last menu item when the down arrow key is pressed', function () {
+			var element = createDropdownMenuEl();
+			addMenuItemEl(element, { linkTextContent: 'Item 1' });
+			var menuItem2El = addMenuItemEl(element, { linkTextContent: 'Item 2' });
+
+			document.body.appendChild(element);
+
+			var menu = new DropdownMenu(element);
+			menu.toggle();
+			menu.toggleElement.focus();
+
+			// Arrow down three times
+			var event;
+			for (var i = 0; i < 3; i++) {
+				event = initKeyboardEvent('keydown', { keyCode: DOWN_ARROW, bubbles: true, cancelable: true });
+				document.activeElement.dispatchEvent(event);
+			}
+
+			expect(document.activeElement).to.equal(menuItem2El.querySelector('a'));
+		});
+
+		it('should not wrap past the top menu item when the up arrow key is pressed', function () {
+			var element = createDropdownMenuEl();
+			var menuItemEl = addMenuItemEl(element, { linkTextContent: 'Item 1' });
+			addMenuItemEl(element, { linkTextContent: 'Item 2' });
+
+			document.body.appendChild(element);
+
+			var menu = new DropdownMenu(element);
+			menu.toggle();
+			menu.toggleElement.focus();
+
+			// Arrow down into the menu items, then arrow up
+			var arrowDownEvent = initKeyboardEvent('keydown', { keyCode: DOWN_ARROW, bubbles: true, cancelable: true });
+			var arrowUpEvent = initKeyboardEvent('keydown', { keyCode: UP_ARROW, bubbles: true, cancelable: true });
+			document.activeElement.dispatchEvent(arrowDownEvent);
+			document.activeElement.dispatchEvent(arrowUpEvent);
+
+			expect(document.activeElement).to.equal(menuItemEl.querySelector('a'));
+		});
+
+		it ('should focus the first visible menu item when there are hidden menu items and the down arrow key is pressed', function () {
+			var element = createDropdownMenuEl();
+			var menuItemEl = addMenuItemEl(element, { linkTextContent: 'Item 1' });
+			var menuItem2El = addMenuItemEl(element, { linkTextContent: 'Item 2' });
+
+			// Hide the first menu item
+			menuItemEl.style.display = 'none';
+
+			document.body.appendChild(element);
+
+			var menu = new DropdownMenu(element);
+
+			menu.toggle();
+			menu.toggleElement.focus();
+
+			var event = initKeyboardEvent('keydown', { keyCode: DOWN_ARROW, bubbles: true, cancelable: true });
+			document.activeElement.dispatchEvent(event);
+
+			expect(document.activeElement).to.equal(menuItem2El.querySelector('a'));
 		});
 
 	});
@@ -223,9 +308,31 @@ function createDropdownMenuEl(triggerEl) {
 
 	var menuItemsEl = document.createElement('ul');
 	menuItemsEl.classList.add('o-dropdown-menu__menu-items');
+	menuItemsEl.setAttribute('role', 'menu');
 	element.appendChild(menuItemsEl);
 
 	return element;
+}
+
+function addMenuItemEl(dropdownMenuEl, options) {
+	options = options || {};
+
+	var menuItemsEl = dropdownMenuEl.querySelector('.o-dropdown-menu__menu-items');
+	var menuItemEl = document.createElement('li');
+	var menuItemLinkEl = document.createElement('a');
+
+	menuItemEl.classList.add('o-dropdown-menu__menu-item');
+	menuItemEl.setAttribute('role', 'presentation');
+	menuItemLinkEl.setAttribute('role', 'menuitem');
+	menuItemLinkEl.href = '#';
+	menuItemLinkEl.textContent = options.linkTextContent;
+	// Ensure that the link element has clientWidth and clientHeight > 0
+	menuItemLinkEl.style.display = 'block';
+
+	menuItemEl.appendChild(menuItemLinkEl);
+	menuItemsEl.appendChild(menuItemEl);
+
+	return menuItemEl;
 }
 
 function isExpanded(element) {

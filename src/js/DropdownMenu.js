@@ -2,11 +2,13 @@
 
 var DomDelegate = require('dom-delegate');
 var dispatchEvent = require('./utils').dispatchEvent;
+var indexOfFirstVisibleElement = require('./utils').indexOfFirstVisibleElement;
+var constants = require('./constants');
 
-var ESC = 27;
-var SPACE = 32;
-var UP_ARROW = 38;
-var DOWN_ARROW = 40;
+var ESC = constants.ESC;
+var SPACE = constants.SPACE;
+var UP_ARROW = constants.UP_ARROW;
+var DOWN_ARROW = constants.DOWN_ARROW;
 
 var matchKeys = new RegExp(UP_ARROW + '|' + DOWN_ARROW + '|' + ESC + '|' + SPACE);
 
@@ -72,7 +74,7 @@ function DropdownMenu(element) {
 
 		if (e.which === UP_ARROW && index > 0) index--;
 		if (e.which === DOWN_ARROW && index < itemEls.length - 1) index++;
-		if (!~index) index = 0;
+		if (index <= 0) index = indexOfFirstVisibleElement(itemEls);
 
 		itemEls[index].focus();
 	}
