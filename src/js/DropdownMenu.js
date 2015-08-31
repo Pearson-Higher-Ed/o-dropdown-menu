@@ -1,9 +1,12 @@
 'use strict';
 
 var DomDelegate = require('dom-delegate');
-var dispatchEvent = require('./utils').dispatchEvent;
-var indexOfFirstVisibleElement = require('./utils').indexOfFirstVisibleElement;
 var constants = require('./constants');
+var utils = require('./utils');
+
+var dispatchEvent = utils.dispatchEvent;
+var indexOfElement = utils.indexOfElement;
+var indexOfFirstVisibleElement = utils.indexOfFirstVisibleElement;
 
 var ESC = constants.ESC;
 var SPACE = constants.SPACE;
@@ -158,14 +161,6 @@ function getRootElement(element) {
 		if (element.classList.contains('o-dropdown-menu')) return element;
 		element = element.parentElement;
 	}
-}
-
-function indexOfElement(elements, element) {
-	for (var i = 0, l = elements.length; i < l; i++) {
-		if (elements[i] === element) return i;
-	}
-
-	return -1;
 }
 
 function selectAll(element) {

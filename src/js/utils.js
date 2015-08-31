@@ -20,7 +20,21 @@ function dispatchEvent(element, name, data) {
 }
 
 /**
- * Returns the index of the first visible element from the provided list of elements.
+ * Returns the index of element in the provided list of elements.
+ * @param  {NodeList|Array<HTMLElement} elements List of elements.
+ * @param  {HTMLElement} element
+ * @return {Number} Index (integer) of the element in the list or -1 if the element is not found.
+ */
+function indexOfElement(elements, element) {
+	for (var i = 0, l = elements.length; i < l; i++) {
+		if (elements[i] === element) return i;
+	}
+
+	return -1;
+}
+
+/**
+ * Returns the index of the first visible element in the provided list of elements.
  * @param  {NodeList|Array<HTMLElement>} elements List of elements.
  * @return {Number} Index (integer) of the first visible element in the list or -1 if no items are visible.
  */
@@ -39,4 +53,5 @@ function indexOfFirstVisibleElement(elements) {
 }
 
 exports.dispatchEvent = dispatchEvent;
+exports.indexOfElement = indexOfElement;
 exports.indexOfFirstVisibleElement = indexOfFirstVisibleElement;
