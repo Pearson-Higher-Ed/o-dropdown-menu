@@ -3,6 +3,13 @@
 var DomDelegate = require('dom-delegate');
 var dispatchEvent = require('./utils').dispatchEvent;
 
+var ESC = 27;
+var SPACE = 32;
+var UP_ARROW = 38;
+var DOWN_ARROW = 40;
+
+var matchKeys = new RegExp(UP_ARROW + '|' + DOWN_ARROW + '|' + ESC + '|' + SPACE);
+
 /**
  * Represents a contextual menu for displaying list items.
  * @param {HTMLElement} element
@@ -36,7 +43,7 @@ function DropdownMenu(element) {
 	function handleKeydown(e) {
 		// Handle up arrow, down arrow, escape, and space keys for elements that
 		// are not inputs and textareas
-		if (!/(38|40|27|32)/.test(e.which) || /input|textarea/i.test(e.target.tagName)) return;
+		if (!matchKeys.test(e.which) || /input|textarea/i.test(e.target.tagName)) return;
 
 		e.preventDefault();
 		e.stopPropagation();
@@ -48,8 +55,8 @@ function DropdownMenu(element) {
 
 		// Toggle the menu: if not expanded, keys other than esc will expand it;
 		// if expanded, esc will collapse it.
-		if ((!isExpanded && e.which !== 27) || (isExpanded && e.which === 27)) {
-			if (e.which === 27) dispatchEvent(toggleElement, 'focus');
+		if ((!isExpanded && e.which !== ESC) || (isExpanded && e.which === ESC)) {
+			if (e.which === ESC) dispatchEvent(toggleElement, 'focus');
 			return dispatchEvent(toggleElement, 'click');
 		}
 
@@ -63,8 +70,8 @@ function DropdownMenu(element) {
 
 		var index = indexOfElement(itemEls, e.target);
 
-		if (e.which === 38 && index > 0) index--;
-		if (e.which === 40 && index < itemEls.length - 1) index++;
+		if (e.which === UP_ARROW && index > 0) index--;
+		if (e.which === DOWN_ARROW && index < itemEls.length - 1) index++;
 		if (!~index) index = 0;
 
 		itemEls[index].focus();
