@@ -1,3 +1,13 @@
+<a name="0.7.1"></a>
+## 0.7.1 (2015-09-02)
+
+
+### chore
+
+* chore: fix inline demos ([f02671f](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/f02671f))
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/compare/v0.6.0...v0.7.0) (2015-08-31)
 
