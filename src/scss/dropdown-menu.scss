@@ -1,5 +1,6 @@
 .o-dropdown-menu {
 	position: relative;
+	font-size: $o-dropdown-menu-base-font-size;
 }
 
 // Menu item container
@@ -32,7 +33,7 @@
 .o-dropdown-menu__menu-item > a,
 .o-dropdown-menu__menu-item > button {
 	display: block;
-	padding: 3px 20px;
+	padding: $o-dropdown-menu-menu-item-padding;
 	clear: both;
 	text-decoration: none;
 	color: $o-dropdown-menu-link-color;
@@ -70,6 +71,20 @@
 	margin: 9px 0;
 	overflow: hidden;
 	background-color: $o-dropdown-menu-divider-bg;
+}
+
+// Heading
+.o-dropdown-menu__heading {
+	font-size: $o-dropdown-menu-heading-font-size;
+}
+
+.o-dropdown-menu__heading:not(.o-dropdown-menu__menu-item) {
+	padding: $o-dropdown-menu-menu-item-padding;
+	color: $o-dropdown-menu-heading-color;
+
+	> a {
+		text-decoration: none;
+	}
 }
 
 // Disabled state

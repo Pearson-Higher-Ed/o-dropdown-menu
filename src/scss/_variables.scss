@@ -3,16 +3,24 @@
 /// @link http://registry.origami.ft.com/components/o-dropdown-menu
 ////
 
+// TODO: replace colors with o-colors
+
 // Basics
 $o-dropdown-menu-bg: #ffffff !default;
 $o-dropdown-menu-border: rgba(0, 0, 0, 0.15) !default;
 $o-dropdown-menu-divider-bg: rgba(0, 0, 0, 0.15) !default;
+$o-dropdown-menu-base-font-size: 100% !default;
+$o-dropdown-menu-menu-item-padding: 3px 20px !default;
 
 // Links
 $o-dropdown-menu-link-color: rgb(75, 75, 75) !default;
 $o-dropdown-menu-link-hover-color: rgb(255, 255, 255) !default;
 $o-dropdown-menu-link-hover-bg: rgb(118, 118, 118) !default;
 $o-dropdown-menu-link-disabled-color: rgb(116, 116, 116) !default;
+
+// Heading
+$o-dropdown-menu-heading-color: rgb(75, 75, 75) !default;
+$o-dropdown-menu-heading-font-size: 1.125em !default;
 
 // z-index
 $o-dropdown-menu-z-index: 1000 !default;
