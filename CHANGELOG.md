@@ -1,3 +1,13 @@
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/compare/v0.7.1...v0.8.0) (2015-09-03)
+
+
+### Features
+
+* add support for headings ([990db15](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/990db15))
+
+
+
 <a name="0.7.1"></a>
 ## 0.7.1 (2015-09-02)
 
