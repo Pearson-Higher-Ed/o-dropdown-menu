@@ -1,3 +1,13 @@
+<a name="0.9.0"></a>
+# [0.9.0](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/compare/v0.8.0...v0.9.0) (2015-09-08)
+
+
+### Bug Fixes
+
+* keyboard navigation with arrow keys when menu items in the middle of the list are hidden ([b18561f](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/b18561f))
+
+
+
 <a name="0.8.0"></a>
 # [0.8.0](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/compare/v0.7.1...v0.8.0) (2015-09-03)
 
