@@ -157,9 +157,9 @@ describe('DropdownMenu', function () {
 			document.body.appendChild(element);
 
 			var menu = new DropdownMenu(element);
-			var event = initKeyboardEvent('keydown', { keyCode: keyCode, bubbles: true, cancelable: true });
+			menu.toggleElement.focus();
 
-			menu.toggleElement.dispatchEvent(event);
+			pressKey(keyCode, 1);
 
 			expect(isExpanded(element)).to.be(true);
 		}
@@ -182,12 +182,12 @@ describe('DropdownMenu', function () {
 			document.body.appendChild(element);
 
 			var menu = new DropdownMenu(element);
-			var event = initKeyboardEvent('keydown', { keyCode: ESC, bubbles: true, cancelable: true });
 
 			menu.toggle();
+			menu.toggleElement.focus();
 			expect(isExpanded(element)).to.be(true);
 
-			menu.toggleElement.dispatchEvent(event);
+			pressEsc();
 
 			expect(isExpanded(element)).to.be(false);
 		});
@@ -203,8 +203,7 @@ describe('DropdownMenu', function () {
 			menu.toggle();
 			menu.toggleElement.focus();
 
-			var event = initKeyboardEvent('keydown', { keyCode: DOWN_ARROW, bubbles: true, cancelable: true });
-			document.activeElement.dispatchEvent(event);
+			pressDownArrow(1);
 
 			expect(document.activeElement).to.equal(menuItemEl.querySelector('a'));
 		});
@@ -221,11 +220,7 @@ describe('DropdownMenu', function () {
 			menu.toggleElement.focus();
 
 			// Arrow down three times
-			var event;
-			for (var i = 0; i < 3; i++) {
-				event = initKeyboardEvent('keydown', { keyCode: DOWN_ARROW, bubbles: true, cancelable: true });
-				document.activeElement.dispatchEvent(event);
-			}
+			pressDownArrow(3);
 
 			expect(document.activeElement).to.equal(menuItem2El.querySelector('a'));
 		});
@@ -242,15 +237,13 @@ describe('DropdownMenu', function () {
 			menu.toggleElement.focus();
 
 			// Arrow down into the menu items, then arrow up
-			var arrowDownEvent = initKeyboardEvent('keydown', { keyCode: DOWN_ARROW, bubbles: true, cancelable: true });
-			var arrowUpEvent = initKeyboardEvent('keydown', { keyCode: UP_ARROW, bubbles: true, cancelable: true });
-			document.activeElement.dispatchEvent(arrowDownEvent);
-			document.activeElement.dispatchEvent(arrowUpEvent);
+			pressDownArrow(1);
+			pressUpArrow(1);
 
 			expect(document.activeElement).to.equal(menuItemEl.querySelector('a'));
 		});
 
-		it ('should focus the first visible menu item when there are hidden menu items and the down arrow key is pressed', function () {
+		it ('should focus the first visible menu item when there are hidden menu items at the beginning of the list and the down arrow key is pressed', function () {
 			var element = createDropdownMenuEl();
 			var menuItemEl = addMenuItemEl(element, { linkTextContent: 'Item 1' });
 			var menuItem2El = addMenuItemEl(element, { linkTextContent: 'Item 2' });
@@ -265,10 +258,51 @@ describe('DropdownMenu', function () {
 			menu.toggle();
 			menu.toggleElement.focus();
 
-			var event = initKeyboardEvent('keydown', { keyCode: DOWN_ARROW, bubbles: true, cancelable: true });
-			document.activeElement.dispatchEvent(event);
+			pressDownArrow(1);
 
 			expect(document.activeElement).to.equal(menuItem2El.querySelector('a'));
+		});
+
+		it('should focus the next visible menu item when there are hidden menu items in the middle of the list and the down arrow key is pressed', function () {
+			var element = createDropdownMenuEl();
+			addMenuItemEl(element, { linkTextContent: 'Item 1' });
+			var menuItem2El = addMenuItemEl(element, { linkTextContent: 'Item 2 (hidden)' });
+			var menuItem3El = addMenuItemEl(element, { linkTextContent: 'Item 3' });
+
+			// Hide the second menu item
+			menuItem2El.style.display = 'none';
+
+			document.body.appendChild(element);
+
+			var menu = new DropdownMenu(element);
+
+			menu.toggle();
+			menu.toggleElement.focus();
+
+			pressDownArrow(2);
+
+			expect(document.activeElement).to.equal(menuItem3El.querySelector('a'));
+		});
+
+		it('should focus the previous visible menu item when there are hidden menu items in the middle of the list and the up arrow key is pressed', function () {
+			var element = createDropdownMenuEl();
+			var menuItemEl = addMenuItemEl(element, { linkTextContent: 'Item 1' });
+			var menuItem2El = addMenuItemEl(element, { linkTextContent: 'Item 2 (hidden)' });
+			var menuItem3El = addMenuItemEl(element, { linkTextContent: 'Item 3' });
+
+			// Hide the second menu item
+			menuItem2El.style.display = 'none';
+
+			document.body.appendChild(element);
+
+			var menu = new DropdownMenu(element);
+
+			menu.toggle();
+			menuItem3El.querySelector('a').focus();
+
+			pressUpArrow(1);
+
+			expect(document.activeElement).to.equal(menuItemEl.querySelector('a'));
 		});
 
 	});
@@ -334,6 +368,31 @@ function addMenuItemEl(dropdownMenuEl, options) {
 
 	return menuItemEl;
 }
+
+// Keyboard actions
+
+function pressKey(keyCode, times) {
+	if (!times || times <= 0) times = 1;
+
+	for (var i = 0; i < times; i++) {
+		var event = initKeyboardEvent('keydown', { keyCode: keyCode, bubbles: true, cancelable: true });
+		document.activeElement.dispatchEvent(event);
+	}
+}
+
+function pressEsc(times) {
+	pressKey(ESC, times);
+}
+
+function pressDownArrow(times) {
+	pressKey(DOWN_ARROW, times);
+}
+
+function pressUpArrow(times) {
+	pressKey(UP_ARROW, times);
+}
+
+// Checks
 
 function isExpanded(element) {
 	return element.classList.contains('o-dropdown-menu--expanded');

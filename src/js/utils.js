@@ -40,18 +40,38 @@ function indexOfElement(elements, element) {
  */
 function indexOfFirstVisibleElement(elements) {
 	for (var i = 0, l = elements.length; i < l; i++) {
-		var element = elements[i];
+		if (isElementVisible(elements[i])) return i;
+	}
 
-		if (element.offsetParent !== null &&
-			(element.clientWidth + element.clientHeight) > 0) {
+	return -1;
+}
 
-			return i;
+function indexOfNextVisibleElement(elements, startIndex, reverse) {
+	var i, l;
+
+	if (reverse) {
+		for (i = startIndex; i > 0; i--) {
+			if (isElementVisible(elements[i])) return i;
+		}
+	} else {
+		for (i = startIndex, l = elements.length; i < l; i++) {
+			if (isElementVisible(elements[i])) return i;
 		}
 	}
 
 	return -1;
 }
 
-exports.dispatchEvent = dispatchEvent;
-exports.indexOfElement = indexOfElement;
-exports.indexOfFirstVisibleElement = indexOfFirstVisibleElement;
+function isElementVisible(element) {
+	return (
+		element.offsetParent !== null &&
+		(element.clientWidth + element.clientHeight) > 0
+	);
+}
+
+module.exports = {
+	dispatchEvent: dispatchEvent,
+	indexOfElement: indexOfElement,
+	indexOfFirstVisibleElement: indexOfFirstVisibleElement,
+	indexOfNextVisibleElement: indexOfNextVisibleElement
+};

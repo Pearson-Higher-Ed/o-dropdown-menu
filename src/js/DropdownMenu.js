@@ -7,6 +7,7 @@ var utils = require('./utils');
 var dispatchEvent = utils.dispatchEvent;
 var indexOfElement = utils.indexOfElement;
 var indexOfFirstVisibleElement = utils.indexOfFirstVisibleElement;
+var indexOfNextVisibleElement = utils.indexOfNextVisibleElement;
 
 var ESC = constants.ESC;
 var SPACE = constants.SPACE;
@@ -75,8 +76,8 @@ function DropdownMenu(element) {
 
 		var index = indexOfElement(itemEls, e.target);
 
-		if (e.which === UP_ARROW && index > 0) index--;
-		if (e.which === DOWN_ARROW && index < itemEls.length - 1) index++;
+		if (e.which === UP_ARROW && index > 0) index = indexOfNextVisibleElement(itemEls, --index, true);
+		if (e.which === DOWN_ARROW && index < itemEls.length - 1) index = indexOfNextVisibleElement(itemEls, ++index);
 		if (index <= 0) index = indexOfFirstVisibleElement(itemEls);
 
 		itemEls[index].focus();
