@@ -1,4 +1,4 @@
-# o-dropdown-menu [![Build Status](https://travis-ci.org/Pearson-Higher-Ed/o-dropdown-menu.svg)](https://travis-ci.org/Pearson-Higher-Ed/o-dropdown-menu)
+# o-dropdown-menu [![Build Status](https://travis-ci.org/Pearson-Higher-Ed/o-dropdown-menu.svg)](https://travis-ci.org/Pearson-Higher-Ed/o-dropdown-menu) [![Coverage Status](https://coveralls.io/repos/Pearson-Higher-Ed/o-dropdown-menu/badge.svg?branch=master&service=github)](https://coveralls.io/github/Pearson-Higher-Ed/o-dropdown-menu?branch=master)
 
 Contextual menu for displaying list items.
 

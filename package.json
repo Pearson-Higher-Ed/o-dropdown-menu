@@ -15,6 +15,7 @@
     "babelify": "^5.0.4",
     "browserify-istanbul": "^0.2.1",
     "conventional-changelog": "0.0.17",
+    "coveralls": "^2.11.4",
     "debowerify": "Financial-Times/debowerify",
     "expect.js": "^0.3.1",
     "karma": "^0.12.31",
