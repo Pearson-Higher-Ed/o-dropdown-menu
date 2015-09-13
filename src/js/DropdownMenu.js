@@ -23,6 +23,7 @@ var matchKeys = new RegExp(UP_ARROW + '|' + DOWN_ARROW + '|' + ESC + '|' + SPACE
 function DropdownMenu(element) {
 	if (!(this instanceof DropdownMenu)) throw new TypeError('Constructor DropdownMenu requires \'new\'');
 	if (!element) throw new TypeError('missing required argument: element');
+	if (element.hasAttribute('data-upgraded')) return;
 
 	var dropdownMenu = this;
 	this.element = element;
@@ -104,6 +105,8 @@ function DropdownMenu(element) {
 	}
 
 	this.destroy = destroy;
+
+	this.element.setAttribute('data-upgraded', 'o-dropdown-menu');
 }
 
 /**

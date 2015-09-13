@@ -16,7 +16,11 @@ var DOWN_ARROW = constants.DOWN_ARROW;
 describe('DropdownMenu', function () {
 
 	it('should initialize', function () {
-		expect(new DropdownMenu(createDropdownMenuEl())).to.not.be(undefined);
+		var element = createDropdownMenuEl();
+		var dropdownMenu = new DropdownMenu(element);
+
+		expect(dropdownMenu).to.not.be(undefined);
+		expect(element.getAttribute('data-upgraded')).to.be('o-dropdown-menu');
 	});
 
 	it('should destroy', function () {
