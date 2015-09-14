@@ -1,3 +1,13 @@
+<a name="0.10.0"></a>
+# [0.10.0](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/compare/v0.9.0...v0.10.0) (2015-09-14)
+
+
+### Bug Fixes
+
+* prevent element from being upgraded more than once ([1731ba3](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/1731ba3))
+
+
+
 <a name="0.9.0"></a>
 # [0.9.0](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/compare/v0.8.0...v0.9.0) (2015-09-08)
 
