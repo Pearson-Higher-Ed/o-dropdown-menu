@@ -2,11 +2,29 @@
 
 Contextual menu for displaying list items.
 
-## Quick start
-
-TODO
-
 ## API
+
+### Constructor
+
+`DropdownMenu(element)`
+
+Initializes a dropdown menu using the provided element.
+
+### Static methods
+
+`init(element)`
+
+Initializes all dropdown menus that are children of `element`.
+
+`destroy()`
+
+Destroys and cleans up all elements that were previously initialized.
+
+### Methods
+
+`toggle()`
+
+Toggles the display of the menu items.
 
 ### Events
 
