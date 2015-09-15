@@ -1,3 +1,9 @@
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/compare/v0.10.0...v1.0.0) (2015-09-15)
+
+
+
+
 <a name="0.10.0"></a>
 # [0.10.0](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/compare/v0.9.0...v0.10.0) (2015-09-14)
 
