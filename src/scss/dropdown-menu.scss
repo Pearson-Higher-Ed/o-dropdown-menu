@@ -6,7 +6,6 @@
 // Menu item container
 .o-dropdown-menu__menu-items {
 	position: absolute;
-	top: 100%;
 	left: 0;
 	z-index: $o-dropdown-menu-z-index;
 	display: none;
@@ -22,6 +21,10 @@
 
 .o-dropdown-menu--expanded > .o-dropdown-menu__menu-items {
 	display: block;
+}
+
+.o-dropdown-menu--up > .o-dropdown-menu__menu-items {
+	bottom: 100%;
 }
 
 .o-dropdown-menu--right > .o-dropdown-menu__menu-items {

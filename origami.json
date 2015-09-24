@@ -29,6 +29,11 @@
             "path": "/demos/disabled.html",
             "expanded": true,
             "description": ""
+        },
+        {
+            "path": "/demos/up.html",
+            "expanded": true,
+            "description": ""
         }
     ]
 }

@@ -20,6 +20,10 @@ module.exports = {
 		{
 			"name": "disabled",
 			"template": "demos/src/disabled.mustache"
+		},
+		{
+			"name": "up",
+			"template": "demos/src/up.mustache"
 		}
 	]
 };
