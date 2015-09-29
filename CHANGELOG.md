@@ -1,3 +1,13 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/compare/v1.0.1...v1.1.0) (2015-09-29)
+
+
+### Features
+
+* add o-dropdown-menu--up to enable expanding menu items above the trigger ([3423291](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/commit/3423291))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/Pearson-Higher-Ed/o-dropdown-menu/compare/v0.10.0...v1.0.0) (2015-09-15)
 
