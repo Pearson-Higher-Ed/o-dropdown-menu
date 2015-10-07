@@ -2,9 +2,17 @@
 
 import expect from 'expect.js';
 import DropdownMenu from './../src/js/DropdownMenu';
-import { dispatchEvent } from './../src/js/utils';
-import { initKeyboardEvent } from './utils';
-import { ESC, SPACE, UP_ARROW, DOWN_ARROW } from './../src/js/constants';
+import {
+	dispatchEvent,
+	createDropdownMenuEl,
+	addMenuItemEl,
+	pressEsc,
+	pressSpace,
+	pressDownArrow,
+	pressUpArrow,
+	isExpanded,
+	isAriaExpanded
+} from './helpers';
 
 describe('DropdownMenu', () => {
 
@@ -148,7 +156,7 @@ describe('DropdownMenu', () => {
 
 	describe('keyboard navigation', () => {
 
-		function testKeyCode_expands(keyCode) {
+		function testActionExpands(action) {
 			const element = createDropdownMenuEl();
 
 			document.body.appendChild(element);
@@ -156,21 +164,21 @@ describe('DropdownMenu', () => {
 			const menu = new DropdownMenu(element);
 			menu.toggleElement.focus();
 
-			pressKey(keyCode, 1);
+			action();
 
 			expect(isExpanded(element)).to.be(true);
 		}
 
 		it('should expand when the space key is pressed', () => {
-			testKeyCode_expands(SPACE);
+			testActionExpands(() => pressSpace());
 		});
 
 		it('should expand when the down arrow key is pressed', () => {
-			testKeyCode_expands(DOWN_ARROW);
+			testActionExpands(() => pressDownArrow());
 		});
 
 		it('should expand when the up arrow key is pressed', () => {
-			testKeyCode_expands(UP_ARROW);
+			testActionExpands(() => pressUpArrow());
 		});
 
 		it('should collapse when the esc key is pressed', () => {
@@ -328,75 +336,3 @@ describe('DropdownMenu', () => {
 	});
 
 });
-
-function createDropdownMenuEl(triggerEl) {
-	const element = document.createElement('div');
-	element.classList.add('o-dropdown-menu');
-
-	triggerEl = triggerEl || document.createElement('button');
-	triggerEl.setAttribute('data-toggle', 'dropdown-menu');
-	element.appendChild(triggerEl);
-
-	const menuItemsEl = document.createElement('ul');
-	menuItemsEl.classList.add('o-dropdown-menu__menu-items');
-	menuItemsEl.setAttribute('role', 'menu');
-	element.appendChild(menuItemsEl);
-
-	return element;
-}
-
-function addMenuItemEl(dropdownMenuEl, options) {
-	options = options || {};
-
-	const menuItemsEl = dropdownMenuEl.querySelector('.o-dropdown-menu__menu-items');
-	const menuItemEl = document.createElement('li');
-	const menuItemLinkEl = document.createElement('a');
-
-	menuItemEl.classList.add('o-dropdown-menu__menu-item');
-	menuItemEl.setAttribute('role', 'presentation');
-	menuItemLinkEl.setAttribute('role', 'menuitem');
-	menuItemLinkEl.href = '#';
-	menuItemLinkEl.textContent = options.linkTextContent;
-	// Ensure that the link element has clientWidth and clientHeight > 0
-	menuItemLinkEl.style.display = 'block';
-
-	menuItemEl.appendChild(menuItemLinkEl);
-	menuItemsEl.appendChild(menuItemEl);
-
-	return menuItemEl;
-}
-
-// Keyboard actions
-
-function pressKey(keyCode, times) {
-	if (!times || times <= 0) times = 1;
-
-	for (let i = 0; i < times; i++) {
-		const event = initKeyboardEvent('keydown', { keyCode: keyCode, bubbles: true, cancelable: true });
-		document.activeElement.dispatchEvent(event);
-	}
-}
-
-function pressEsc(times) {
-	pressKey(ESC, times);
-}
-
-function pressDownArrow(times) {
-	pressKey(DOWN_ARROW, times);
-}
-
-function pressUpArrow(times) {
-	pressKey(UP_ARROW, times);
-}
-
-// Checks
-
-function isExpanded(element) {
-	return element.classList.contains('o-dropdown-menu--expanded');
-}
-
-function isAriaExpanded(element) {
-	const toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
-	if (!toggleElement) return false;
-	return !!toggleElement.getAttribute('aria-expanded');
-}

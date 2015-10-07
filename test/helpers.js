@@ -1,3 +1,7 @@
+import { ESC, SPACE, UP_ARROW, DOWN_ARROW } from './../src/js/constants';
+
+export { dispatchEvent } from './../src/js/utils';
+
 // Adapted from https://gist.github.com/termi/4654819
 export function initKeyboardEvent(type, dict) {
 	let _initKeyboardEvent_type = ((e) => {
@@ -163,4 +167,82 @@ export function initKeyboardEvent(type, dict) {
 	}
 
 	return e;
+}
+
+// DOM helpers
+
+export function createDropdownMenuEl(triggerEl) {
+	const element = document.createElement('div');
+	element.classList.add('o-dropdown-menu');
+
+	triggerEl = triggerEl || document.createElement('button');
+	triggerEl.setAttribute('data-toggle', 'dropdown-menu');
+	element.appendChild(triggerEl);
+
+	const menuItemsEl = document.createElement('ul');
+	menuItemsEl.classList.add('o-dropdown-menu__menu-items');
+	menuItemsEl.setAttribute('role', 'menu');
+	element.appendChild(menuItemsEl);
+
+	return element;
+}
+
+export function addMenuItemEl(dropdownMenuEl, options) {
+	options = options || {};
+
+	const menuItemsEl = dropdownMenuEl.querySelector('.o-dropdown-menu__menu-items');
+	const menuItemEl = document.createElement('li');
+	const menuItemLinkEl = document.createElement('a');
+
+	menuItemEl.classList.add('o-dropdown-menu__menu-item');
+	menuItemEl.setAttribute('role', 'presentation');
+	menuItemLinkEl.setAttribute('role', 'menuitem');
+	menuItemLinkEl.href = '#';
+	menuItemLinkEl.textContent = options.linkTextContent;
+	// Ensure that the link element has clientWidth and clientHeight > 0
+	menuItemLinkEl.style.display = 'block';
+
+	menuItemEl.appendChild(menuItemLinkEl);
+	menuItemsEl.appendChild(menuItemEl);
+
+	return menuItemEl;
+}
+
+// Keyboard actions
+
+export function pressKey(keyCode, times) {
+	if (!times || times <= 0) times = 1;
+
+	for (let i = 0; i < times; i++) {
+		const event = initKeyboardEvent('keydown', { keyCode: keyCode, bubbles: true, cancelable: true });
+		document.activeElement.dispatchEvent(event);
+	}
+}
+
+export function pressEsc(times) {
+	pressKey(ESC, times);
+}
+
+export function pressSpace(times) {
+	pressKey(SPACE, times);
+}
+
+export function pressDownArrow(times) {
+	pressKey(DOWN_ARROW, times);
+}
+
+export function pressUpArrow(times) {
+	pressKey(UP_ARROW, times);
+}
+
+// Checks
+
+export function isExpanded(element) {
+	return element.classList.contains('o-dropdown-menu--expanded');
+}
+
+export function isAriaExpanded(element) {
+	const toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
+	if (!toggleElement) return false;
+	return !!toggleElement.getAttribute('aria-expanded');
 }
