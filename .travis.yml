@@ -1,16 +1,12 @@
 language: node_js
 sudo: false
 node_js:
-- '0.12'
-
+  - 'stable'
 before_install:
-- npm install -g Financial-Times/origami-build-tools#node12
-- obt install
-
+  - npm install -g Financial-Times/origami-build-tools#node4
+  - obt install
 script:
-- obt test
-- obt verify
-
+  - obt verify
+  - npm run coverage
 after_success:
-- cat ./build/reports/coverage/coverage.lcov | node_modules/coveralls/bin/coveralls.js
-
+  - cat ./build/reports/coverage/coverage.lcov | node_modules/coveralls/bin/coveralls.js

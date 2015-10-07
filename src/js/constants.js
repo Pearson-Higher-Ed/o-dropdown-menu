@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	ESC: 27,
 	SPACE: 32,
 	UP_ARROW: 38,

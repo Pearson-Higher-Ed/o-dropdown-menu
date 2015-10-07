@@ -1,40 +1,33 @@
 /*global describe, it*/
-'use strict';
 
-var expect = require('expect.js');
+import expect from 'expect.js';
+import DropdownMenu from './../src/js/DropdownMenu';
+import { dispatchEvent } from './../src/js/utils';
+import { initKeyboardEvent } from './utils';
+import { ESC, SPACE, UP_ARROW, DOWN_ARROW } from './../src/js/constants';
 
-var DropdownMenu = require('./../src/js/DropdownMenu');
-var dispatchEvent = require('./../src/js/utils').dispatchEvent;
-var initKeyboardEvent = require('./utils').initKeyboardEvent;
-var constants = require('./../src/js/constants');
+describe('DropdownMenu', () => {
 
-var ESC = constants.ESC;
-var SPACE = constants.SPACE;
-var UP_ARROW = constants.UP_ARROW;
-var DOWN_ARROW = constants.DOWN_ARROW;
-
-describe('DropdownMenu', function () {
-
-	it('should initialize', function () {
-		var element = createDropdownMenuEl();
-		var dropdownMenu = new DropdownMenu(element);
+	it('should initialize', () => {
+		const element = createDropdownMenuEl();
+		const dropdownMenu = new DropdownMenu(element);
 
 		expect(dropdownMenu).to.not.be(undefined);
 		expect(element.getAttribute('data-upgraded')).to.be('o-dropdown-menu');
 	});
 
-	it('should destroy', function () {
-		var element = createDropdownMenuEl();
-		var dropdownMenu = new DropdownMenu(element);
+	it('should destroy', () => {
+		const element = createDropdownMenuEl();
+		const dropdownMenu = new DropdownMenu(element);
 
 		dropdownMenu.destroy();
 	});
 
-	describe('toggle()', function () {
+	describe('toggle()', () => {
 
-		it('should toggle the dropdown', function () {
-			var element = createDropdownMenuEl();
-			var dropdownMenu = new DropdownMenu(element);
+		it('should toggle the dropdown', () => {
+			const element = createDropdownMenuEl();
+			const dropdownMenu = new DropdownMenu(element);
 
 			dropdownMenu.toggle();
 
@@ -42,37 +35,37 @@ describe('DropdownMenu', function () {
 			expect(isAriaExpanded(element)).to.be(true);
 		});
 
-		it('should not toggle the dropdown when trigger is a button and is disabled', function () {
-			var element = createDropdownMenuEl();
-			var toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
+		it('should not toggle the dropdown when trigger is a button and is disabled', () => {
+			const element = createDropdownMenuEl();
+			const toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
 
 			toggleElement.disabled = true;
-			var dropdownMenu = new DropdownMenu(element);
+			const dropdownMenu = new DropdownMenu(element);
 
 			dropdownMenu.toggle();
 
 			expect(isExpanded(element)).to.be(false);
 		});
 
-		it('should not toggle the dropdown when trigger is not a button and is disabled', function () {
-			var element = createDropdownMenuEl(document.createElement('a'));
-			var toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
+		it('should not toggle the dropdown when trigger is not a button and is disabled', () => {
+			const element = createDropdownMenuEl(document.createElement('a'));
+			const toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
 
 			toggleElement.classList.add('o-dropdown-menu__toggle--disabled');
-			var dropdownMenu = new DropdownMenu(element);
+			const dropdownMenu = new DropdownMenu(element);
 
 			dropdownMenu.toggle();
 
 			expect(isExpanded(element)).to.be(false);
 		});
 
-		it('should collapse other expanded menus', function () {
-			var elements = [createDropdownMenuEl(), createDropdownMenuEl()];
+		it('should collapse other expanded menus', () => {
+			const elements = [createDropdownMenuEl(), createDropdownMenuEl()];
 
 			document.body.appendChild(elements[0]);
 			document.body.appendChild(elements[1]);
 
-			var menus = [new DropdownMenu(elements[0]), new DropdownMenu(elements[1])];
+			const menus = [new DropdownMenu(elements[0]), new DropdownMenu(elements[1])];
 
 			menus[0].toggle();
 
@@ -86,14 +79,14 @@ describe('DropdownMenu', function () {
 
 	});
 
-	describe('click', function () {
+	describe('click', () => {
 
-		it('should collapse the menu when click event occurs outside of the dropdown element', function () {
-			var element = createDropdownMenuEl();
+		it('should collapse the menu when click event occurs outside of the dropdown element', () => {
+			const element = createDropdownMenuEl();
 
 			document.body.appendChild(element);
 
-			var menu = new DropdownMenu(element);
+			const menu = new DropdownMenu(element);
 
 			menu.toggle();
 
@@ -105,11 +98,11 @@ describe('DropdownMenu', function () {
 		});
 
 		it('should prevent default when menu item is a valid link and is disabled', function (done) {
-			var element = createDropdownMenuEl();
+			const element = createDropdownMenuEl();
 			document.body.appendChild(element);
 
-			var menuItem = document.createElement('li');
-			var menuItemLink = document.createElement('a');
+			const menuItem = document.createElement('li');
+			const menuItemLink = document.createElement('a');
 			menuItem.classList.add('o-dropdown-menu__menu-item');
 			menuItem.classList.add('o-dropdown-menu__menu-item--disabled');
 			menuItemLink.setAttribute('role', 'menuitem');
@@ -129,11 +122,11 @@ describe('DropdownMenu', function () {
 		});
 
 		it('should not prevent default when menu item is a valid link', function (done) {
-			var element = createDropdownMenuEl();
+			const element = createDropdownMenuEl();
 			document.body.appendChild(element);
 
-			var menuItem = document.createElement('li');
-			var menuItemLink = document.createElement('a');
+			const menuItem = document.createElement('li');
+			const menuItemLink = document.createElement('a');
 			menuItem.classList.add('o-dropdown-menu__menu-item');
 			menuItemLink.setAttribute('role', 'menuitem');
 			menuItemLink.href = 'http://example.com';
@@ -153,14 +146,14 @@ describe('DropdownMenu', function () {
 
 	});
 
-	describe('keyboard navigation', function () {
+	describe('keyboard navigation', () => {
 
 		function testKeyCode_expands(keyCode) {
-			var element = createDropdownMenuEl();
+			const element = createDropdownMenuEl();
 
 			document.body.appendChild(element);
 
-			var menu = new DropdownMenu(element);
+			const menu = new DropdownMenu(element);
 			menu.toggleElement.focus();
 
 			pressKey(keyCode, 1);
@@ -168,24 +161,24 @@ describe('DropdownMenu', function () {
 			expect(isExpanded(element)).to.be(true);
 		}
 
-		it('should expand when the space key is pressed', function () {
+		it('should expand when the space key is pressed', () => {
 			testKeyCode_expands(SPACE);
 		});
 
-		it('should expand when the down arrow key is pressed', function () {
+		it('should expand when the down arrow key is pressed', () => {
 			testKeyCode_expands(DOWN_ARROW);
 		});
 
-		it('should expand when the up arrow key is pressed', function () {
+		it('should expand when the up arrow key is pressed', () => {
 			testKeyCode_expands(UP_ARROW);
 		});
 
-		it('should collapse when the esc key is pressed', function () {
-			var element = createDropdownMenuEl();
+		it('should collapse when the esc key is pressed', () => {
+			const element = createDropdownMenuEl();
 
 			document.body.appendChild(element);
 
-			var menu = new DropdownMenu(element);
+			const menu = new DropdownMenu(element);
 
 			menu.toggle();
 			menu.toggleElement.focus();
@@ -196,14 +189,14 @@ describe('DropdownMenu', function () {
 			expect(isExpanded(element)).to.be(false);
 		});
 
-		it('should focus the first menu item when the down arrow key is pressed', function () {
-			var element = createDropdownMenuEl();
-			var menuItemEl = addMenuItemEl(element, { linkTextContent: 'Item 1' });
+		it('should focus the first menu item when the down arrow key is pressed', () => {
+			const element = createDropdownMenuEl();
+			const menuItemEl = addMenuItemEl(element, { linkTextContent: 'Item 1' });
 			addMenuItemEl(element, { linkTextContent: 'Item 2' });
 
 			document.body.appendChild(element);
 
-			var menu = new DropdownMenu(element);
+			const menu = new DropdownMenu(element);
 			menu.toggle();
 			menu.toggleElement.focus();
 
@@ -212,14 +205,14 @@ describe('DropdownMenu', function () {
 			expect(document.activeElement).to.equal(menuItemEl.querySelector('a'));
 		});
 
-		it('should not wrap past the last menu item when the down arrow key is pressed', function () {
-			var element = createDropdownMenuEl();
+		it('should not wrap past the last menu item when the down arrow key is pressed', () => {
+			const element = createDropdownMenuEl();
 			addMenuItemEl(element, { linkTextContent: 'Item 1' });
-			var menuItem2El = addMenuItemEl(element, { linkTextContent: 'Item 2' });
+			const menuItem2El = addMenuItemEl(element, { linkTextContent: 'Item 2' });
 
 			document.body.appendChild(element);
 
-			var menu = new DropdownMenu(element);
+			const menu = new DropdownMenu(element);
 			menu.toggle();
 			menu.toggleElement.focus();
 
@@ -229,14 +222,14 @@ describe('DropdownMenu', function () {
 			expect(document.activeElement).to.equal(menuItem2El.querySelector('a'));
 		});
 
-		it('should not wrap past the top menu item when the up arrow key is pressed', function () {
-			var element = createDropdownMenuEl();
-			var menuItemEl = addMenuItemEl(element, { linkTextContent: 'Item 1' });
+		it('should not wrap past the top menu item when the up arrow key is pressed', () => {
+			const element = createDropdownMenuEl();
+			const menuItemEl = addMenuItemEl(element, { linkTextContent: 'Item 1' });
 			addMenuItemEl(element, { linkTextContent: 'Item 2' });
 
 			document.body.appendChild(element);
 
-			var menu = new DropdownMenu(element);
+			const menu = new DropdownMenu(element);
 			menu.toggle();
 			menu.toggleElement.focus();
 
@@ -247,17 +240,17 @@ describe('DropdownMenu', function () {
 			expect(document.activeElement).to.equal(menuItemEl.querySelector('a'));
 		});
 
-		it ('should focus the first visible menu item when there are hidden menu items at the beginning of the list and the down arrow key is pressed', function () {
-			var element = createDropdownMenuEl();
-			var menuItemEl = addMenuItemEl(element, { linkTextContent: 'Item 1' });
-			var menuItem2El = addMenuItemEl(element, { linkTextContent: 'Item 2' });
+		it ('should focus the first visible menu item when there are hidden menu items at the beginning of the list and the down arrow key is pressed', () => {
+			const element = createDropdownMenuEl();
+			const menuItemEl = addMenuItemEl(element, { linkTextContent: 'Item 1' });
+			const menuItem2El = addMenuItemEl(element, { linkTextContent: 'Item 2' });
 
 			// Hide the first menu item
 			menuItemEl.style.display = 'none';
 
 			document.body.appendChild(element);
 
-			var menu = new DropdownMenu(element);
+			const menu = new DropdownMenu(element);
 
 			menu.toggle();
 			menu.toggleElement.focus();
@@ -267,18 +260,18 @@ describe('DropdownMenu', function () {
 			expect(document.activeElement).to.equal(menuItem2El.querySelector('a'));
 		});
 
-		it('should focus the next visible menu item when there are hidden menu items in the middle of the list and the down arrow key is pressed', function () {
-			var element = createDropdownMenuEl();
+		it('should focus the next visible menu item when there are hidden menu items in the middle of the list and the down arrow key is pressed', () => {
+			const element = createDropdownMenuEl();
 			addMenuItemEl(element, { linkTextContent: 'Item 1' });
-			var menuItem2El = addMenuItemEl(element, { linkTextContent: 'Item 2 (hidden)' });
-			var menuItem3El = addMenuItemEl(element, { linkTextContent: 'Item 3' });
+			const menuItem2El = addMenuItemEl(element, { linkTextContent: 'Item 2 (hidden)' });
+			const menuItem3El = addMenuItemEl(element, { linkTextContent: 'Item 3' });
 
 			// Hide the second menu item
 			menuItem2El.style.display = 'none';
 
 			document.body.appendChild(element);
 
-			var menu = new DropdownMenu(element);
+			const menu = new DropdownMenu(element);
 
 			menu.toggle();
 			menu.toggleElement.focus();
@@ -288,18 +281,18 @@ describe('DropdownMenu', function () {
 			expect(document.activeElement).to.equal(menuItem3El.querySelector('a'));
 		});
 
-		it('should focus the previous visible menu item when there are hidden menu items in the middle of the list and the up arrow key is pressed', function () {
-			var element = createDropdownMenuEl();
-			var menuItemEl = addMenuItemEl(element, { linkTextContent: 'Item 1' });
-			var menuItem2El = addMenuItemEl(element, { linkTextContent: 'Item 2 (hidden)' });
-			var menuItem3El = addMenuItemEl(element, { linkTextContent: 'Item 3' });
+		it('should focus the previous visible menu item when there are hidden menu items in the middle of the list and the up arrow key is pressed', () => {
+			const element = createDropdownMenuEl();
+			const menuItemEl = addMenuItemEl(element, { linkTextContent: 'Item 1' });
+			const menuItem2El = addMenuItemEl(element, { linkTextContent: 'Item 2 (hidden)' });
+			const menuItem3El = addMenuItemEl(element, { linkTextContent: 'Item 3' });
 
 			// Hide the second menu item
 			menuItem2El.style.display = 'none';
 
 			document.body.appendChild(element);
 
-			var menu = new DropdownMenu(element);
+			const menu = new DropdownMenu(element);
 
 			menu.toggle();
 			menuItem3El.querySelector('a').focus();
@@ -311,22 +304,22 @@ describe('DropdownMenu', function () {
 
 	});
 
-	describe('events', function () {
+	describe('events', () => {
 
 		it('should fire oDropdownMenu.expand when the menu is expanded', function (done) {
-			var element = createDropdownMenuEl();
+			const element = createDropdownMenuEl();
 			element.addEventListener('oDropdownMenu.expand', done.bind(null, null));
 			document.body.appendChild(element);
-			var menu = new DropdownMenu(element);
+			const menu = new DropdownMenu(element);
 
 			menu.toggle();
 		});
 
 		it('should fire oDropdownMenu.collapse when the menu is collapsed', function (done) {
-			var element = createDropdownMenuEl();
+			const element = createDropdownMenuEl();
 			element.addEventListener('oDropdownMenu.collapse', done.bind(null, null));
 			document.body.appendChild(element);
-			var menu = new DropdownMenu(element);
+			const menu = new DropdownMenu(element);
 
 			menu.toggle();
 			menu.toggle();
@@ -337,14 +330,14 @@ describe('DropdownMenu', function () {
 });
 
 function createDropdownMenuEl(triggerEl) {
-	var element = document.createElement('div');
+	const element = document.createElement('div');
 	element.classList.add('o-dropdown-menu');
 
 	triggerEl = triggerEl || document.createElement('button');
 	triggerEl.setAttribute('data-toggle', 'dropdown-menu');
 	element.appendChild(triggerEl);
 
-	var menuItemsEl = document.createElement('ul');
+	const menuItemsEl = document.createElement('ul');
 	menuItemsEl.classList.add('o-dropdown-menu__menu-items');
 	menuItemsEl.setAttribute('role', 'menu');
 	element.appendChild(menuItemsEl);
@@ -355,9 +348,9 @@ function createDropdownMenuEl(triggerEl) {
 function addMenuItemEl(dropdownMenuEl, options) {
 	options = options || {};
 
-	var menuItemsEl = dropdownMenuEl.querySelector('.o-dropdown-menu__menu-items');
-	var menuItemEl = document.createElement('li');
-	var menuItemLinkEl = document.createElement('a');
+	const menuItemsEl = dropdownMenuEl.querySelector('.o-dropdown-menu__menu-items');
+	const menuItemEl = document.createElement('li');
+	const menuItemLinkEl = document.createElement('a');
 
 	menuItemEl.classList.add('o-dropdown-menu__menu-item');
 	menuItemEl.setAttribute('role', 'presentation');
@@ -378,8 +371,8 @@ function addMenuItemEl(dropdownMenuEl, options) {
 function pressKey(keyCode, times) {
 	if (!times || times <= 0) times = 1;
 
-	for (var i = 0; i < times; i++) {
-		var event = initKeyboardEvent('keydown', { keyCode: keyCode, bubbles: true, cancelable: true });
+	for (let i = 0; i < times; i++) {
+		const event = initKeyboardEvent('keydown', { keyCode: keyCode, bubbles: true, cancelable: true });
 		document.activeElement.dispatchEvent(event);
 	}
 }
@@ -403,7 +396,7 @@ function isExpanded(element) {
 }
 
 function isAriaExpanded(element) {
-	var toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
+	const toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
 	if (!toggleElement) return false;
 	return !!toggleElement.getAttribute('aria-expanded');
 }

@@ -1,8 +1,6 @@
-'use strict';
-
 // Adapted from https://gist.github.com/termi/4654819
-function initKeyboardEvent(type, dict) {
-	var _initKeyboardEvent_type = (function(e) {
+export function initKeyboardEvent(type, dict) {
+	let _initKeyboardEvent_type = ((e) => {
 		try {
 			e.initKeyboardEvent(
 				"keyup",                  // in DOMString typeArg
@@ -44,55 +42,59 @@ function initKeyboardEvent(type, dict) {
 		catch ( __e__ ) { _initKeyboardEvent_type = 0 }
 	})(document.createEvent( "KeyboardEvent" ));
 
-	var	_keyboardEvent_properties_dictionary = {
-			"char": "",
-			"key": "",
-			"location": 0,
-			"ctrlKey": false,
-			"shiftKey": false,
-			"altKey": false,
-			"metaKey": false,
-			"repeat": false,
-			"locale": "",
+	const	_keyboardEvent_properties_dictionary = {
+		"char": "",
+		"key": "",
+		"location": 0,
+		"ctrlKey": false,
+		"shiftKey": false,
+		"altKey": false,
+		"metaKey": false,
+		"repeat": false,
+		"locale": "",
 
-			"detail": 0,
-			"bubbles": false,
-			"cancelable": false,
+		"detail": 0,
+		"bubbles": false,
+		"cancelable": false,
 
-			//legacy properties
-			"keyCode": 0,
-			"charCode": 0,
-			"which": 0
-		};
+		//legacy properties
+		"keyCode": 0,
+		"charCode": 0,
+		"which": 0
+	};
 
-	var	own = Function.prototype.call.bind(Object.prototype.hasOwnProperty);
+	const own = Function.prototype.call.bind(Object.prototype.hasOwnProperty);
 
-	var	_Object_defineProperty = Object.defineProperty || function(obj, prop, val) {
+	const _Object_defineProperty = Object.defineProperty || ((obj, prop, val) => {
 		if( "value" in val ) {
 			obj[prop] = val["value"];
 		}
-	};
+	});
 
-	var e;
+	let e;
+
 	if( _initKeyboardEvent_type ) {
 		e = document.createEvent( "KeyboardEvent" );
 	} else {
 		e = document.createEvent( "Event" );
 	}
-	var _prop_name;
-	var localDict = {};
 
-	for( _prop_name in _keyboardEvent_properties_dictionary ) if(own(_keyboardEvent_properties_dictionary, _prop_name) ) {
-		localDict[_prop_name] = (own(dict, _prop_name) && dict || _keyboardEvent_properties_dictionary)[_prop_name];
+	let _prop_name;
+	const localDict = {};
+
+	for(_prop_name in _keyboardEvent_properties_dictionary) {
+		if(own(_keyboardEvent_properties_dictionary, _prop_name) ) {
+			localDict[_prop_name] = (own(dict, _prop_name) && dict || _keyboardEvent_properties_dictionary)[_prop_name];
+		}
 	}
 
-	var _ctrlKey = localDict["ctrlKey"];
-	var _shiftKey = localDict["shiftKey"];
-	var _altKey = localDict["altKey"];
-	var _metaKey = localDict["metaKey"];
-	var _altGraphKey = localDict["altGraphKey"];
+	const _ctrlKey = localDict["ctrlKey"];
+	const _shiftKey = localDict["shiftKey"];
+	const _altKey = localDict["altKey"];
+	const _metaKey = localDict["metaKey"];
+	const _altGraphKey = localDict["altGraphKey"];
 
-	var _modifiersListArg = _initKeyboardEvent_type > 3 ? (
+	const _modifiersListArg = _initKeyboardEvent_type > 3 ? (
 			(_ctrlKey ? "Control" : "") +
 			(_shiftKey ? " Shift" : "") +
 			(_altKey ? " Alt" : "") +
@@ -100,18 +102,18 @@ function initKeyboardEvent(type, dict) {
 			(_altGraphKey ? " AltGraph" : "")
 		).trim() : null;
 
-	var _key = localDict["key"] + "";
-	var _char = localDict["char"] + "";
-	var _location = localDict["location"];
-	var _keyCode = localDict["keyCode"] || (localDict["keyCode"] = _key && _key.charCodeAt( 0 ) || 0);
-	var _charCode = localDict["charCode"] || (localDict["charCode"] = _char && _char.charCodeAt( 0 ) || 0);
+	const _key = localDict["key"] + "";
+	const _char = localDict["char"] + "";
+	const _location = localDict["location"];
+	const _keyCode = localDict["keyCode"] || (localDict["keyCode"] = _key && _key.charCodeAt( 0 ) || 0);
+	const _charCode = localDict["charCode"] || (localDict["charCode"] = _char && _char.charCodeAt( 0 ) || 0);
 
-	var _bubbles = localDict["bubbles"];
-	var _cancelable = localDict["cancelable"];
+	const _bubbles = localDict["bubbles"];
+	const _cancelable = localDict["cancelable"];
 
-	var _repeat = localDict["repeat"];
-	var _locale = localDict["locale"];
-	var _view = document.defaultView;
+	const _repeat = localDict["repeat"];
+	const _locale = localDict["locale"];
+	const _view = document.defaultView;
 
 	localDict["which"] || (localDict["which"] = localDict["keyCode"]);
 
@@ -162,5 +164,3 @@ function initKeyboardEvent(type, dict) {
 
 	return e;
 }
-
-exports.initKeyboardEvent = initKeyboardEvent;

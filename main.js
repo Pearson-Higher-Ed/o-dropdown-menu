@@ -1,13 +1,10 @@
-/*global require, module*/
-'use strict';
+import DropdownMenu from './src/js/DropdownMenu';
 
-var DropdownMenu = require('./src/js/DropdownMenu');
+export default DropdownMenu;
 
-var constructAll = function () {
+const constructAll = () => {
 	DropdownMenu.init();
 	document.removeEventListener('o.DOMContentLoaded', constructAll);
 };
 
 document.addEventListener('o.DOMContentLoaded', constructAll);
-
-module.exports = DropdownMenu;

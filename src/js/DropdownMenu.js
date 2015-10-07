@@ -1,126 +1,147 @@
-'use strict';
+import DomDelegate from 'dom-delegate';
+import constants from './constants';
+import { dispatchEvent, indexOfElement,
+		 indexOfFirstVisibleElement, indexOfNextVisibleElement } from './utils';
 
-var DomDelegate = require('dom-delegate');
-var constants = require('./constants');
-var utils = require('./utils');
+const ESC = constants.ESC;
+const SPACE = constants.SPACE;
+const UP_ARROW = constants.UP_ARROW;
+const DOWN_ARROW = constants.DOWN_ARROW;
 
-var dispatchEvent = utils.dispatchEvent;
-var indexOfElement = utils.indexOfElement;
-var indexOfFirstVisibleElement = utils.indexOfFirstVisibleElement;
-var indexOfNextVisibleElement = utils.indexOfNextVisibleElement;
-
-var ESC = constants.ESC;
-var SPACE = constants.SPACE;
-var UP_ARROW = constants.UP_ARROW;
-var DOWN_ARROW = constants.DOWN_ARROW;
-
-var matchKeys = new RegExp(UP_ARROW + '|' + DOWN_ARROW + '|' + ESC + '|' + SPACE);
+const matchKeys = new RegExp(UP_ARROW + '|' + DOWN_ARROW + '|' + ESC + '|' + SPACE);
 
 /**
  * Represents a contextual menu for displaying list items.
  * @param {HTMLElement} element
  */
-function DropdownMenu(element) {
-	if (!(this instanceof DropdownMenu)) throw new TypeError('Constructor DropdownMenu requires \'new\'');
-	if (!element) throw new TypeError('missing required argument: element');
-	if (element.hasAttribute('data-upgraded')) return;
+export default class DropdownMenu {
 
-	var dropdownMenu = this;
-	this.element = element;
+	constructor(element) {
+		if (!element) throw new TypeError('missing required argument: element');
+		if (element.hasAttribute('data-upgraded')) return;
 
-	var toggleElement = this.toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
-	if (!toggleElement) throw new Error('unable to locate a child element with selector: [data-toggle="dropdown-menu"]');
+		this.element = element;
 
-	function handleClick(e) {
-		if (e.target.tagName.toLowerCase() === 'a' &&
-			e.target.getAttribute('data-toggle') !== 'dropdown-menu') {
+		const toggleElement = this.toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
+		if (!toggleElement) throw new Error('unable to locate a child element with selector: [data-toggle="dropdown-menu"]');
 
-			if (e.target.href === '#' ||
-				e.target.parentElement.classList.contains('o-dropdown-menu__menu-item--disabled')) {
+		function handleClick(e) {
+			if (e.target.tagName.toLowerCase() === 'a' &&
+				e.target.getAttribute('data-toggle') !== 'dropdown-menu') {
 
+				if (e.target.href === '#' ||
+					e.target.parentElement.classList.contains('o-dropdown-menu__menu-item--disabled')) {
+
+					e.preventDefault();
+				}
+			} else {
 				e.preventDefault();
 			}
-		} else {
+
+			this.toggle();
+		}
+
+		function handleKeydown(e) {
+			// Handle up arrow, down arrow, escape, and space keys for elements that
+			// are not inputs and textareas
+			if (!matchKeys.test(e.which) || /input|textarea/i.test(e.target.tagName)) return;
+
 			e.preventDefault();
+			e.stopPropagation();
+
+			const element = getRootElement(e.target);
+			const toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
+
+			const isExpanded = element.classList.contains('o-dropdown-menu--expanded');
+
+			// Toggle the menu: if not expanded, keys other than esc will expand it;
+			// if expanded, esc will collapse it.
+			if ((!isExpanded && e.which !== ESC) || (isExpanded && e.which === ESC)) {
+				if (e.which === ESC) dispatchEvent(toggleElement, 'focus');
+				return dispatchEvent(toggleElement, 'click');
+			}
+
+			// Focus menu item
+			const selector =
+				'.o-dropdown-menu__menu-item:not(.o-dropdown-menu__menu-item--disabled) a, ' +
+				'.o-dropdown-menu__menu-item:not(.o-dropdown-menu__menu-item--disabled) button';
+			const itemEls = element.querySelectorAll(selector);
+
+			if (!itemEls.length) return;
+
+			let index = indexOfElement(itemEls, e.target);
+
+			if (e.which === UP_ARROW && index > 0) index = indexOfNextVisibleElement(itemEls, --index, true);
+			if (e.which === DOWN_ARROW && index < itemEls.length - 1) index = indexOfNextVisibleElement(itemEls, ++index);
+			if (index <= 0) index = indexOfFirstVisibleElement(itemEls);
+
+			itemEls[index].focus();
 		}
 
-		dropdownMenu.toggle();
-	}
+		if (!DropdownMenu.bodyDelegate) {
+			const bodyDelegate = new DomDelegate(document.body);
 
-	function handleKeydown(e) {
-		// Handle up arrow, down arrow, escape, and space keys for elements that
-		// are not inputs and textareas
-		if (!matchKeys.test(e.which) || /input|textarea/i.test(e.target.tagName)) return;
+			bodyDelegate.on('click', function (e) {
+				if (!e.defaultPrevented) collapseAll();
+			});
 
-		e.preventDefault();
-		e.stopPropagation();
-
-		var element = getRootElement(e.target);
-		var toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
-
-		var isExpanded = element.classList.contains('o-dropdown-menu--expanded');
-
-		// Toggle the menu: if not expanded, keys other than esc will expand it;
-		// if expanded, esc will collapse it.
-		if ((!isExpanded && e.which !== ESC) || (isExpanded && e.which === ESC)) {
-			if (e.which === ESC) dispatchEvent(toggleElement, 'focus');
-			return dispatchEvent(toggleElement, 'click');
+			DropdownMenu.bodyDelegate = bodyDelegate;
 		}
 
-		// Focus menu item
-		var selector =
-			'.o-dropdown-menu__menu-item:not(.o-dropdown-menu__menu-item--disabled) a, ' +
-			'.o-dropdown-menu__menu-item:not(.o-dropdown-menu__menu-item--disabled) button';
-		var itemEls = element.querySelectorAll(selector);
+		const elementDelegate = new DomDelegate(element);
 
-		if (!itemEls.length) return;
+		elementDelegate.on('keydown', '[data-toggle="dropdown-menu"]', handleKeydown.bind(this));
+		elementDelegate.on('keydown', '[role="menu"]', handleKeydown.bind(this));
+		elementDelegate.on('click', handleClick.bind(this));
 
-		var index = indexOfElement(itemEls, e.target);
+		function destroy() {
+			elementDelegate.destroy();
+		}
 
-		if (e.which === UP_ARROW && index > 0) index = indexOfNextVisibleElement(itemEls, --index, true);
-		if (e.which === DOWN_ARROW && index < itemEls.length - 1) index = indexOfNextVisibleElement(itemEls, ++index);
-		if (index <= 0) index = indexOfFirstVisibleElement(itemEls);
+		this.destroy = destroy;
 
-		itemEls[index].focus();
+		this.element.setAttribute('data-upgraded', 'o-dropdown-menu');
 	}
 
-	if (!DropdownMenu.bodyDelegate) {
-		var bodyDelegate = new DomDelegate(document.body);
+	/**
+	 * Expands or collapses the menu items.
+	 * @returns {undefined} undefined
+	 */
+	toggle() {
+		const element = this.element;
+		const toggleElement = this.toggleElement;
 
-		bodyDelegate.on('click', function (e) {
-			if (!e.defaultPrevented) collapseAll();
-		});
+		const isDisabled =
+			toggleElement.classList.contains('o-dropdown-menu__toggle--disabled') ||
+			toggleElement.disabled;
 
-		DropdownMenu.bodyDelegate = bodyDelegate;
+		const isExpanded = element.classList.contains('o-dropdown-menu--expanded');
+
+		collapseAll();
+
+		if (isDisabled) return;
+
+		if (!isExpanded) {
+			element.classList.add('o-dropdown-menu--expanded');
+			toggleElement.setAttribute('aria-expanded', 'true');
+			dispatchEvent(element, 'oDropdownMenu.expand');
+		}
 	}
 
-	var elementDelegate = new DomDelegate(element);
-
-	elementDelegate.on('keydown', '[data-toggle="dropdown-menu"]', handleKeydown);
-	elementDelegate.on('keydown', '[role="menu"]', handleKeydown);
-	elementDelegate.on('click', handleClick);
-
-	function destroy() {
-		elementDelegate.destroy();
-	}
-
-	this.destroy = destroy;
-
-	this.element.setAttribute('data-upgraded', 'o-dropdown-menu');
 }
 
 /**
  * Initializes all dropdown-menu elements on the page or within
  * the element passed in.
- * @param  {HTMLElement|string} element DOM element or selector.
- * @return {DropdownMenu[]} List of DropdownMenu instances that
+ * @param {HTMLElement|string} element DOM element or selector.
+ * @returns {DropdownMenu[]} List of DropdownMenu instances that
  * have been initialized.
  */
 DropdownMenu.init = function (element) {
-	var dropdownMenuEls = selectAll(element);
-	var dropdownMenus = [];
+	const dropdownMenuEls = selectAll(element);
+	const dropdownMenus = [];
 
-	for (var i = 0, l = dropdownMenuEls.length; i < l; i++) {
+	for (let i = 0, l = dropdownMenuEls.length; i < l; i++) {
 		dropdownMenus.push(new DropdownMenu(dropdownMenuEls[i]));
 	}
 
@@ -129,35 +150,10 @@ DropdownMenu.init = function (element) {
 
 /**
  * Destroys all dropdown-menu instances on the page.
+ * @returns {undefined} undefined
  */
-DropdownMenu.destroy = function () {
+DropdownMenu.destroy = () => {
 	DropdownMenu.bodyDelegate && DropdownMenu.bodyDelegate.destroy();
-};
-
-/**
- * Expands or collapses the menu items.
- */
-DropdownMenu.prototype.toggle = function () {
-	var element = this.element;
-	var toggleElement = this.toggleElement;
-
-	var isDisabled =
-		toggleElement.classList.contains('o-dropdown-menu__toggle--disabled') ||
-		toggleElement.disabled;
-
-	var isExpanded = element.classList.contains('o-dropdown-menu--expanded');
-
-	collapseAll();
-
-	if (isDisabled) return;
-
-	if (!isExpanded) {
-		element.classList.add('o-dropdown-menu--expanded');
-		toggleElement.setAttribute('aria-expanded', 'true');
-		dispatchEvent(element, 'oDropdownMenu.expand');
-	}
-
-	return this;
 };
 
 function getRootElement(element) {
@@ -178,11 +174,11 @@ function selectAll(element) {
 }
 
 function collapseAll() {
-	var dropdownMenuEls = selectAll();
+	const dropdownMenuEls = selectAll();
 
-	for (var i = 0, l = dropdownMenuEls.length; i < l; i++) {
-		var element = dropdownMenuEls[i];
-		var toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
+	for (let i = 0, l = dropdownMenuEls.length; i < l; i++) {
+		const element = dropdownMenuEls[i];
+		const toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
 
 		if (!element.classList.contains('o-dropdown-menu--expanded')) continue;
 
@@ -191,5 +187,3 @@ function collapseAll() {
 		dispatchEvent(element, 'oDropdownMenu.collapse');
 	}
 }
-
-module.exports = DropdownMenu;
