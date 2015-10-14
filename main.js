@@ -1,10 +1,12 @@
-import DropdownMenu from './src/js/DropdownMenu';
+import componentHandler from 'o-component-handler';
 
-export default DropdownMenu;
+export { default } from './src/js/DropdownMenu';
 
-const constructAll = () => {
-	DropdownMenu.init();
-	document.removeEventListener('o.DOMContentLoaded', constructAll);
-};
+const O_DOM_CONTENT_LOADED = 'o.DOMContentLoaded';
 
-document.addEventListener('o.DOMContentLoaded', constructAll);
+function upgradeAll() {
+	componentHandler.upgradeDom('DropdownMenu');
+	document.removeEventListener(O_DOM_CONTENT_LOADED, upgradeAll);
+}
+
+document.addEventListener(O_DOM_CONTENT_LOADED, upgradeAll);

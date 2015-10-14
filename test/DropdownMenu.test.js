@@ -21,7 +21,6 @@ describe('DropdownMenu', () => {
 		const dropdownMenu = new DropdownMenu(element);
 
 		expect(dropdownMenu).to.not.be(undefined);
-		expect(element.getAttribute('data-upgraded')).to.be('o-dropdown-menu');
 	});
 
 	it('should destroy', () => {

@@ -1,7 +1,8 @@
 {
   "name": "o-dropdown-menu",
   "dependencies": {
-    "dom-delegate": "^2.0.0"
+    "dom-delegate": "^2.0.0",
+    "o-component-handler": "~1.0.0"
   },
   "main": [
     "main.scss",

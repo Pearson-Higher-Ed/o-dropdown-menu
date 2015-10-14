@@ -1,12 +1,10 @@
 import DomDelegate from 'dom-delegate';
-import constants from './constants';
+import componentHandler from 'o-component-handler';
 import { dispatchEvent, indexOfElement,
 		 indexOfFirstVisibleElement, indexOfNextVisibleElement } from './utils';
+import { ESC, SPACE, UP_ARROW, DOWN_ARROW } from './constants';
 
-const ESC = constants.ESC;
-const SPACE = constants.SPACE;
-const UP_ARROW = constants.UP_ARROW;
-const DOWN_ARROW = constants.DOWN_ARROW;
+const CSS_CLASS = 'o-dropdown-menu';
 
 const matchKeys = new RegExp(UP_ARROW + '|' + DOWN_ARROW + '|' + ESC + '|' + SPACE);
 
@@ -18,7 +16,6 @@ export default class DropdownMenu {
 
 	constructor(element) {
 		if (!element) throw new TypeError('missing required argument: element');
-		if (element.hasAttribute('data-upgraded')) return;
 
 		this.element = element;
 
@@ -30,7 +27,7 @@ export default class DropdownMenu {
 				e.target.getAttribute('data-toggle') !== 'dropdown-menu') {
 
 				if (e.target.href === '#' ||
-					e.target.parentElement.classList.contains('o-dropdown-menu__menu-item--disabled')) {
+					e.target.parentElement.classList.contains(`${CSS_CLASS}__menu-item--disabled`)) {
 
 					e.preventDefault();
 				}
@@ -52,7 +49,7 @@ export default class DropdownMenu {
 			const element = getRootElement(e.target);
 			const toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
 
-			const isExpanded = element.classList.contains('o-dropdown-menu--expanded');
+			const isExpanded = element.classList.contains(`${CSS_CLASS}--expanded`);
 
 			// Toggle the menu: if not expanded, keys other than esc will expand it;
 			// if expanded, esc will collapse it.
@@ -62,9 +59,11 @@ export default class DropdownMenu {
 			}
 
 			// Focus menu item
-			const selector =
-				'.o-dropdown-menu__menu-item:not(.o-dropdown-menu__menu-item--disabled) a, ' +
-				'.o-dropdown-menu__menu-item:not(.o-dropdown-menu__menu-item--disabled) button';
+			const selector = `
+				.${CSS_CLASS}__menu-item:not(.${CSS_CLASS}__menu-item--disabled) a,
+				.${CSS_CLASS}__menu-item:not(.${CSS_CLASS}__menu-item--disabled) button
+			`;
+
 			const itemEls = element.querySelectorAll(selector);
 
 			if (!itemEls.length) return;
@@ -99,8 +98,6 @@ export default class DropdownMenu {
 		}
 
 		this.destroy = destroy;
-
-		this.element.setAttribute('data-upgraded', 'o-dropdown-menu');
 	}
 
 	/**
@@ -112,17 +109,17 @@ export default class DropdownMenu {
 		const toggleElement = this.toggleElement;
 
 		const isDisabled =
-			toggleElement.classList.contains('o-dropdown-menu__toggle--disabled') ||
+			toggleElement.classList.contains(`${CSS_CLASS}__toggle--disabled`) ||
 			toggleElement.disabled;
 
-		const isExpanded = element.classList.contains('o-dropdown-menu--expanded');
+		const isExpanded = element.classList.contains(`${CSS_CLASS}--expanded`);
 
 		collapseAll();
 
 		if (isDisabled) return;
 
 		if (!isExpanded) {
-			element.classList.add('o-dropdown-menu--expanded');
+			element.classList.add(`${CSS_CLASS}--expanded`);
 			toggleElement.setAttribute('aria-expanded', 'true');
 			dispatchEvent(element, 'oDropdownMenu.expand');
 		}
@@ -130,23 +127,6 @@ export default class DropdownMenu {
 
 }
 
-/**
- * Initializes all dropdown-menu elements on the page or within
- * the element passed in.
- * @param {HTMLElement|string} element DOM element or selector.
- * @returns {DropdownMenu[]} List of DropdownMenu instances that
- * have been initialized.
- */
-DropdownMenu.init = function (element) {
-	const dropdownMenuEls = selectAll(element);
-	const dropdownMenus = [];
-
-	for (let i = 0, l = dropdownMenuEls.length; i < l; i++) {
-		dropdownMenus.push(new DropdownMenu(dropdownMenuEls[i]));
-	}
-
-	return dropdownMenus;
-};
 
 /**
  * Destroys all dropdown-menu instances on the page.
@@ -156,9 +136,24 @@ DropdownMenu.destroy = () => {
 	DropdownMenu.bodyDelegate && DropdownMenu.bodyDelegate.destroy();
 };
 
+
+/**
+ * Register this component with the component handler.
+ */
+componentHandler.register({
+	constructor: DropdownMenu,
+	classAsString: 'DropdownMenu',
+	cssClass: CSS_CLASS
+});
+
+
+/**
+ * Private
+ */
+
 function getRootElement(element) {
 	while (element !== null) {
-		if (element.classList.contains('o-dropdown-menu')) return element;
+		if (element.classList.contains(CSS_CLASS)) return element;
 		element = element.parentElement;
 	}
 }
@@ -170,7 +165,7 @@ function selectAll(element) {
 		element = document.querySelectorAll(element);
 	}
 
-	return element.querySelectorAll('.o-dropdown-menu');
+	return element.querySelectorAll(`.${CSS_CLASS}`);
 }
 
 function collapseAll() {
@@ -180,9 +175,9 @@ function collapseAll() {
 		const element = dropdownMenuEls[i];
 		const toggleElement = element.querySelector('[data-toggle="dropdown-menu"]');
 
-		if (!element.classList.contains('o-dropdown-menu--expanded')) continue;
+		if (!element.classList.contains(`${CSS_CLASS}--expanded`)) continue;
 
-		element.classList.remove('o-dropdown-menu--expanded');
+		element.classList.remove(`${CSS_CLASS}--expanded`);
 		toggleElement.removeAttribute('aria-expanded');
 		dispatchEvent(element, 'oDropdownMenu.collapse');
 	}
