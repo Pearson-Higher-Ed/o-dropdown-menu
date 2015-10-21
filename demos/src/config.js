@@ -14,10 +14,6 @@ module.exports = {
 			"template": "demos/src/right.mustache"
 		},
 		{
-			"name": "inverse",
-			"template": "demos/src/inverse.mustache"
-		},
-		{
 			"name": "disabled",
 			"template": "demos/src/disabled.mustache"
 		},
